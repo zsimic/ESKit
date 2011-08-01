@@ -3,7 +3,7 @@
 //  Simple linear gradient
 //
 //  Created by Zoran Simic on 9/19/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 esmiler.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

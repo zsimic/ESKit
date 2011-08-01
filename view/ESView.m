@@ -3,7 +3,7 @@
 //  
 //
 //  Created by Zoran Simic on 9/21/09.
-//  Copyright 2009 __MyCompanyName__. All rights reserved.
+//  Copyright 2009 esmiler.com. All rights reserved.
 //
 
 #import "ESView.h"

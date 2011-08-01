@@ -1,0 +1,40 @@
+Useful additions to UIKit classes
+=================================
+Zoran Simic <zoran@simicweb.com>
+v1.0, September 2009
+
+This contains a few classes that I needed for my Currency Master project, they help with customizing a few UIKit objects and provide some functionality I missed.
+
+If you use these classes in your project, I'd love to know about it :) Let me know: zoran@simicweb.com
+This code is otherwise released under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+
+Overview
+--------
+This set of classes allows notably to:
+
+* Make gradient round-corner buttons with no pixmaps (much easier to localize, and port to retina displays)
+* Custom keypad
+* A navigation controller that makes it dead simple to optionally place ads on top/bottom of it
+* A table view controller that allows to:
+** Optionally show a nice textured background
+** Have custom headers (with a custom font) without having to redefine all the UITableView's delegate *header* routines
+* A simplified UIWebView that allows to easily point to localized wikipedia articles
+* A simple way to blend/emphasize UIColor objects or create them with their RGBA components (and several more named colors)
+* A simple way to add a texture on the UINavigationBar
+
+Non UI facilities (all in esmiler.h)
+
+* A way to easily have localized text using a 'tr(str,…)' macro instead of the much more verbose 'NSLocalizedString(key,comment)' approach
+* A way to easily write assertions that are taken away at release
+* A few macros that make it simpler to work with formatted strings
+
+How to add this to your project
+-------------------------------
+If you're using git, simply add this as a submodule to your project:
+
+--------------------------------------
+cd <your project dir>
+git submodule add git@github.com:zsimic/ESKit.git
+--------------------------------------
+
+If not, simply put a copy somewhere of these files, and a reference to them (or the subset you need) in your Xcode project.

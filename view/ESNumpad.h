@@ -3,7 +3,7 @@
 //  Numerical pad that automatically appears on bottom of screen (on top of current window)
 //
 //  Created by zoran on 12/13/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 esmiler.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

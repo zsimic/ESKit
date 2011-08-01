@@ -3,7 +3,7 @@
 //  Simplified button, less verbose than UIButton
 //
 //  Created by zoran on 12/28/08.
-//  Copyright 2008 __MyCompanyName__. All rights reserved.
+//  Copyright 2008 esmiler.com. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
