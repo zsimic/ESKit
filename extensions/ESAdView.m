@@ -14,6 +14,8 @@
 @synthesize adPlacement;
 @synthesize animateAds;
 
+// iAd countries: en, fr, uk, it, germany, ca, spain
+
 // Initialization
 // --------------
 - (id)initWithFrame:(CGRect)frame {
