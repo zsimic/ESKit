@@ -13,9 +13,6 @@
 NSBundle *esBundle;
 
 #define ES_AD_UNAVAILABLE	(NSClassFromString(@"ADBannerView")==nil)
-#define ES_AD_NONE		0
-#define ES_AD_TOP		1
-#define ES_AD_BOTTOM	2
 
 void setEsBundle(NSString *lang);
 

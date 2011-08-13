@@ -22,8 +22,8 @@
 }
 
 - (void)dealloc {
-	[super dealloc];
 	ESRELEASE(adView);
+	[super dealloc];
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -31,12 +31,6 @@
     [super loadView];
 	adView.contentView = self.view;
 	self.view = adView;
-	/* for visual debugging of view layout
-	[[_mainView layer] setCornerRadius: 6.0];
-	[[_mainView layer] setMasksToBounds: YES];
-	[[_mainView layer] setBorderWidth: 1.5];
-	[[_mainView layer] setBorderColor: [[UIColor grayColor] CGColor]];  
-	*/
 }
 
 // Properties

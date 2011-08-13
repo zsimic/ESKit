@@ -24,7 +24,6 @@
 @property (nonatomic, retain) NSArray *headers;
 @property (nonatomic, retain) UIColor *headerTextColor;
 @property (nonatomic, retain) UIFont *headerFont;
-@property (nonatomic, assign) int adPlacement;
 
 - (id)initWithStyle:(UITableViewStyle)pstyle;
 

@@ -20,15 +20,15 @@
 // --------------
 - (id)initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
-		hasAd = NO;
+		hasAd = ESAdTypeNone;
 	}
 	return self;
 }
 
 - (void)dealloc {
 	ESRELEASE(contentView);
-    adBanner.delegate = nil;
-	ESRELEASE(adBanner);
+    iAdBanner.delegate = nil;
+	ESRELEASE(iAdBanner);
 	[super dealloc];
 }
 
@@ -45,29 +45,29 @@
 }
 
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-- (void)setAdPlacement:(int)pplacement {
+- (void)setAdPlacement:(ESAdPlacement)pplacement {
 	if (ES_AD_UNAVAILABLE) return;
 	if (adPlacement != pplacement) {
 		adPlacement = pplacement;
-		if (adPlacement == ES_AD_NONE) {
-			if (adBanner != nil) {
-				[adBanner removeFromSuperview];
-				adBanner.delegate = nil;
-				ESRELEASE(adBanner);
-				hasAd = NO;
+		if (adPlacement == ESAdPlacementNone) {
+			if (iAdBanner != nil) {
+				[iAdBanner removeFromSuperview];
+				iAdBanner.delegate = nil;
+				ESRELEASE(iAdBanner);
+				hasAd = ESAdTypeNone;
 				[self setNeedsLayout];
 			}
 		} else {
-			if (adBanner==nil) {
+			if (iAdBanner==nil) {
 				CGRect frame;
 				frame.size = [ADBannerView sizeFromBannerContentSizeIdentifier:ADBannerContentSizeIdentifier320x50];
 				frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
-				adBanner = [[ADBannerView alloc] initWithFrame:frame];
-				adBanner.delegate = self;
-				adBanner.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
-				adBanner.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifier320x50, nil];
-				[self addSubview:adBanner];
-				hasAd = NO;
+				iAdBanner = [[ADBannerView alloc] initWithFrame:frame];
+				iAdBanner.delegate = self;
+				iAdBanner.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+				iAdBanner.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifier320x50, nil];
+				[self addSubview:iAdBanner];
+				hasAd = ESAdTypeNone;
 				[self setNeedsLayout];
 			}
 		} 
@@ -85,22 +85,22 @@
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 		[UIView setAnimationDuration:0.8f];
 	}
-	if (adBanner!=nil) {
-		CGRect fAd = adBanner.frame;
-		if (hasAd) {
+	if (iAdBanner!=nil) {
+		CGRect fAd = iAdBanner.frame;
+		if (hasAd!=ESAdTypeNone) {
 			contentRect.size.height -= fAd.size.height;
-			if (adPlacement==ES_AD_BOTTOM) {
+			if (adPlacement==ESAdPlacementBottom) {
 				fAd.origin.y = contentRect.size.height;
 			} else {
 				fAd.origin.y = 0.0f;
 				contentRect.origin.y = fAd.size.height;
 			}
-		} else if (adPlacement==ES_AD_BOTTOM) {
+		} else if (adPlacement==ESAdPlacementBottom) {
 			fAd.origin.y = contentRect.size.height + 4.0f;
 		} else {
 			fAd.origin.y = -fAd.size.height - 4.0f;
 		}
-		adBanner.frame = fAd;
+		iAdBanner.frame = fAd;
 //		ES_LOG(@"---- Layout: %i %i %g %g (%g %g %g %g)", n++, hasAd, fAd.origin.y, contentRect.size.height, contentRect.origin.x, contentRect.origin.y, contentRect.size.width, contentRect.size.height);
 	}
 	contentView.frame = contentRect;
@@ -112,14 +112,14 @@
 //#pragma mark ADBannerViewDelegate methods
 
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
-	if (hasAd) return;
-	hasAd = YES;
+	if (hasAd==ESadApple) return;
+	hasAd = ESadApple;
 	[self setNeedsLayout];
 }
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
-	if (!hasAd) return;
-	hasAd = NO;
+	if (hasAd==ESAdTypeNone) return;
+	hasAd = ESAdTypeNone;
 	[self setNeedsLayout];
 }
 

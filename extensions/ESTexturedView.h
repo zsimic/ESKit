@@ -16,16 +16,10 @@
 	CGRect textureRect;			// Rectangle holding where the current main texture should be shown
 	CGRect contentRect;			// Rectangle holding view bounds on screen
 	CGFloat prevContentY;
-	ADBannerView *adBanner;		// Ad banner
-	int adPlacement;			// Ad banner placement, if any
-	BOOL hasAd;
-	BOOL animateAds;			// Animate views when ads appear/disappear
 }
 
 @property (nonatomic, retain) UIView *view;
 @property (nonatomic, retain) UIImage *texture;
-@property (nonatomic, assign) int adPlacement;
-@property (nonatomic, assign) BOOL animateAds;
 
 - (void)setContentOffset:(CGFloat)poffset;
 

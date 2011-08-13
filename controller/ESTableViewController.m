@@ -75,14 +75,6 @@
 
 // Properties
 // ----------
-- (int)adPlacement {
-	return mainView.adPlacement;
-}
-
-- (void)setAdPlacement:(int)pplacement {
-	mainView.adPlacement = pplacement;
-}
-
 - (UITableView *)tableView {
 	return tbView;
 }
