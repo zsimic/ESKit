@@ -28,8 +28,9 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
-    [super loadView];
+	[super loadView];
 	adView.contentView = self.view;
+	adView.rootViewController = self;
 	self.view = adView;
 }
 

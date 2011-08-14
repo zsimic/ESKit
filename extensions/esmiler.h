@@ -12,8 +12,6 @@
 // Globals
 NSBundle *esBundle;
 
-#define ES_AD_UNAVAILABLE	(NSClassFromString(@"ADBannerView")==nil)
-
 void setEsBundle(NSString *lang);
 
 //#if (TARGET_IPHONE_SIMULATOR)
@@ -32,7 +30,7 @@ void setEsBundle(NSString *lang);
 
 #define ES_ASSERT(cond) assert(cond);
 //#define ES_LOG(msg...) printf("%s %d:\t%s\n", __PRETTY_FUNCTION__, __LINE__, [ESFS(msg) UTF8String]);
-#define ES_LOG(msg...) printf("%s\n", [ESFS(msg) UTF8String]);
+#define ES_LOG(msg...) printf("%s %s\n", [ESFS(@"%@", [NSDate date]) UTF8String], [ESFS(msg) UTF8String]);
 #define ES_TRACE(msg...) ES_LOG(msg)
 #define ES_CHECKF(cond, ret, msg...) if (!(cond)) { ES_LOG(msg) ES_ASSERT(cond) return (ret); }		// Check for routines for which checking may have an important performance impact
 #define ES_CHECK_ZOMBIES if (getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) { ES_LOG(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!") }
