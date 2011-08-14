@@ -37,7 +37,6 @@ typedef enum {
 	int consecutiveAdMobFails;              // Allows to try iAds again after N consecutive AdMob requests fail
 }
 
-@property (nonatomic, retain) UIView *contentView;
 @property (nonatomic, assign) ESAdPlacement adPlacement;
 @property (nonatomic, assign) BOOL animateAds;
 @property (nonatomic, retain) UIViewController *rootViewController;

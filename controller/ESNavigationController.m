@@ -1,4 +1,4 @@
-    //
+//
 //  ESNavigationController.m
 //  CurrencyMaster
 //
@@ -13,10 +13,10 @@
 // Initialization
 // --------------
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-	if (self) {
+- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
+	if (self = [super initWithNibName:nibName bundle:nibBundle]) {
 		adView = [[ESAdView alloc] initWithFrame:CGRectZero];
+		adView.rootViewController = self;
 	}
 	return self;
 }
@@ -29,9 +29,36 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	[super loadView];
-	adView.contentView = self.view;
-	adView.rootViewController = self;
+	UIView *cv = self.view;
 	self.view = adView;
+	[adView addSubview:cv];
+}
+
+//- (void)setView:(UIView *)view {
+//	if (view != adView) {
+//		ES_LOG(@"Setting adView content")
+//		adView.contentView = view;
+//	}
+//	ES_LOG(@"Setting nav controller's view")
+//	[super setView:adView];
+//}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[self resignFirstResponder];
+}
+
+- (BOOL)canBecomeFirstResponder {
+	return YES;
+}
+
+- (BOOL)canResignFirstResponder {
+	return YES;
 }
 
 // Properties

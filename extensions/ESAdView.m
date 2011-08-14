@@ -16,7 +16,6 @@
 #define ES_IAD_GIVEUP 10.0f             // We stop querying iAds after this many consecutive fails (iAds probably not supported in current country)
 #define ES_IAD_RETRY_THRESHOLD 100.0f   // Retry iAds after this many requests to AdMob (allows to retry iAds every now and then, just in case they become available in country)
 
-@synthesize contentView;
 @synthesize rootViewController;
 @synthesize adPlacement;
 @synthesize animateAds;
@@ -39,12 +38,31 @@
 			float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
 			desiredProvider = n>ES_IAD_GIVEUP ? ESAdProviderGoogle : ESAdProviderApple;
 		}
+        self.userInteractionEnabled = YES;
 	}
 	return self;
 }
 
+- (void)addSubview:(UIView *)view {
+	if (view != iAdBanner && view != adMobBanner) {
+		ES_LOG(@"Adding view to ESAdView: %@", view)
+		ES_CHECK_NR(contentView==nil, @"contentView should be nil");
+		contentView = view;
+	}
+	[super addSubview:view];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { 
+    ES_LOG(@"touches began"); 
+} 
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    ES_LOG(@"Touches ended");     
+} 
+
+
 - (void)dealloc {
-	ESRELEASE(contentView);
+	contentView = nil;
 	iAdBanner.delegate = nil;
 	ESRELEASE(iAdBanner);
 	adMobBanner.delegate = nil;
@@ -54,16 +72,6 @@
 
 // Properties
 // ----------
-- (void)setContentView:(UIView *)pview {
-	if (contentView != pview) {
-		[contentView removeFromSuperview];
-		[contentView release];
-		contentView = [pview retain];
-		[self addSubview:contentView];
-		[self setNeedsLayout];
-	}
-}
-
 - (void)requestAdMobAd {
 	if (desiredProvider != ESAdProviderGoogle) return;
 	if (!isCurrentlyShowingAdFullScreen) {
@@ -141,6 +149,7 @@
 // Composition
 // -----------
 - (void)layoutSubviews {
+	ES_CHECK_NR(contentView!=nil, @"contentView should not be nil");
 	CGRect contentRect = self.bounds;
 	if (animateAds) {
 		[UIView beginAnimations:nil context:UIGraphicsGetCurrentContext()];
