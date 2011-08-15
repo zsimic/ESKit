@@ -22,6 +22,28 @@
 
 // Initialization
 // --------------
++ (ESAdView *)shareAdView {
+	static ESAdView *adView = nil;
+	if (adView == nil) {
+		adView = [[ESAdView alloc] initWithFrame:CGRectZero];
+	}
+	return adView;
+}
+
++ (BOOL)autoRefresh:(ESAdAutoRefresh)pset {
+	static BOOL isAutoRefreshOn = NO;
+	if (pset==ESAdAutoRefreshOn) {
+		if (!isAutoRefreshOn) {
+			isAutoRefreshOn = YES;
+			[[ESAdView shareAdView] updateAdViews];
+		}
+	} else if (pset==ESAdAutoRefreshOff) {
+		isAutoRefreshOn = NO;
+//		[[ESAdView shareAdView] updateAdViews];
+	}
+	return  isAutoRefreshOn;
+}
+
 - (id)initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		contentView = nil;
@@ -72,6 +94,7 @@
 }
 
 - (void)requestAdMobAd {
+	if (![ESAdView autoRefresh:ESAdAutoRefreshQuery]) { [self updateAdViews]; return; }
 	if (desiredProvider != ESAdProviderGoogle) return;
 	if (!isCurrentlyShowingAdFullScreen) {
 		[adMobBanner loadRequest:nil];
@@ -84,7 +107,7 @@
 }
 
 - (void)updateAdViews {
-	if (adPlacement == ESAdPlacementNone || desiredProvider != ESAdProviderApple) {
+	if (![ESAdView autoRefresh:ESAdAutoRefreshQuery] || adPlacement == ESAdPlacementNone || desiredProvider != ESAdProviderApple) {
 		if (iAdBanner != nil) {
 			[iAdBanner removeFromSuperview];
 			iAdBanner.delegate = nil;
@@ -93,7 +116,7 @@
 			[self setNeedsLayout];
 		}
 	}
-	if (adPlacement == ESAdPlacementNone || desiredProvider != ESAdProviderGoogle) {
+	if (![ESAdView autoRefresh:ESAdAutoRefreshQuery] || adPlacement == ESAdPlacementNone || desiredProvider != ESAdProviderGoogle) {
 		if (adMobBanner != nil) {
 			[adMobBanner removeFromSuperview];
 			adMobBanner.delegate = nil;
@@ -102,7 +125,7 @@
 			[self setNeedsLayout];
 		}
 	}
-	if (adPlacement != ESAdPlacementNone) {
+	if ([ESAdView autoRefresh:ESAdAutoRefreshQuery] && adPlacement != ESAdPlacementNone) {
 		if (desiredProvider == ESAdProviderApple && iAdBanner==nil) {
 			CGRect frame;
 			if (&ADBannerContentSizeIdentifierPortrait != nil) {
@@ -173,7 +196,11 @@
 		}
 		if (iAdBanner) iAdBanner.frame = fAd; else adMobBanner.frame = fAd;
 	}
-	contentView.frame = contentRect;
+	if (contentView.frame.size.height != contentRect.size.height) {
+		contentView.frame = contentRect;
+		[contentView setNeedsLayout];
+		[contentView setNeedsDisplay];
+	}
 	if (animateAds) [UIView commitAnimations];
 }
 
