@@ -33,7 +33,6 @@ void setEsBundle(NSString *lang);
 #define ES_LOG(msg...) printf("%s %s\n", [ESFS(@"%@", [NSDate date]) UTF8String], [ESFS(msg) UTF8String]);
 #define ES_TRACE(msg...) ES_LOG(msg)
 #define ES_CHECKF(cond, ret, msg...) if (!(cond)) { ES_LOG(msg) ES_ASSERT(cond) return (ret); }		// Check for routines for which checking may have an important performance impact
-#define ES_CHECK_ZOMBIES if (getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) { ES_LOG(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!") }
 
 #define ESRELEASE(v) [v release]; v = nil
 //#define ESRELEASE(v) if ((v!=nil) && ([v retainCount]==1)) ES_LOG(@"Released %@ *" #v " %@", [v class], [v description]) [v release]; v = nil
@@ -47,7 +46,6 @@ void setEsBundle(NSString *lang);
 #define ES_LOG(msg...)
 #define ES_TRACE(msg...)
 #define ES_CHECKF(cond, ret, msg...)
-#define ES_CHECK_ZOMBIES if (getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) { NSLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!"); assert(NO); }
 
 #define ESRELEASE(v) [v release]; v = nil		// One should *always* set to nil released objects, this macro allows to make sure not to forget that
 

@@ -10,10 +10,6 @@
 #import "ESAdView.h"
 
 @interface ESNavigationController : UINavigationController {
-	ESAdView *adView;
 }
-
-@property (nonatomic, assign) int adPlacement;
-@property (nonatomic, assign) BOOL animateAds;
 
 @end

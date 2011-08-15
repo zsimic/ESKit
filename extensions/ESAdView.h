@@ -23,6 +23,12 @@ typedef enum {
 	ESAdPlacementBottom
 } ESAdPlacement;
 
+typedef enum {
+	ESAdAutoRefreshQuery = 0,
+	ESAdAutoRefreshOn,
+	ESAdAutoRefreshOff
+} ESAdAutoRefresh;
+
 @interface ESAdView : UIView <ADBannerViewDelegate, GADBannerViewDelegate> {
 	UIView *contentView;					// Content view, weak reference
 	UIViewController *controller;			// Root view controller (needed by the AdMob API)
@@ -40,5 +46,9 @@ typedef enum {
 @property (nonatomic, retain) UIViewController *controller;
 @property (nonatomic, assign) ESAdPlacement adPlacement;
 @property (nonatomic, assign) BOOL animateAds;
+
++ (ESAdView *)shareAdView;
++ (BOOL)autoRefresh:(ESAdAutoRefresh)pset;
+- (void)updateAdViews;
 
 @end
