@@ -1,6 +1,6 @@
 //
 //  ESAdView.m
-//  CurrencyMaster
+//  Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
 //
 //  Created by Zoran Simic on 1/1/11.
 //  Copyright 2011 esmiler.com. All rights reserved.
@@ -13,20 +13,19 @@
 #define ES_IAD_FAIL_COUNT @"es_iAdFailCount"
 #define ES_IAD_SEEN @"es_iAdSeen"
 
-#define ES_IAD_GIVEUP 10.0f             // We stop querying iAds after this many consecutive fails (iAds probably not supported in current country)
-#define ES_IAD_RETRY_THRESHOLD 100.0f   // Retry iAds after this many requests to AdMob (allows to retry iAds every now and then, just in case they become available in country)
+#define ES_IAD_GIVEUP 10.0f				// We stop querying iAds after this many consecutive fails (iAds probably not supported in current country)
+#define ES_IAD_RETRY_THRESHOLD 100.0f	// Retry iAds after this many requests to AdMob (allows to retry iAds every now and then, just in case they become available in country)
 
-@synthesize rootViewController;
+@synthesize controller;
 @synthesize adPlacement;
 @synthesize animateAds;
-
-// iAd countries: en, fr, uk, it, germany, ca, spain
 
 // Initialization
 // --------------
 - (id)initWithFrame:(CGRect)frame {
 	if ((self = [super initWithFrame:frame])) {
 		contentView = nil;
+		controller = nil;
 		animateAds = YES;
 		currentlyShownProvider = ESAdProviderNone;
 		isCurrentlyShowingAdFullScreen = NO;
@@ -38,28 +37,16 @@
 			float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
 			desiredProvider = n>ES_IAD_GIVEUP ? ESAdProviderGoogle : ESAdProviderApple;
 		}
-        self.userInteractionEnabled = YES;
+		// Must set a non-transparent background color to avoid a bug with iAds, where one can't tap on an iAd (won't react)
+		self.backgroundColor = [UIColor blackColor];
 	}
 	return self;
 }
 
 - (void)addSubview:(UIView *)view {
-	if (view != iAdBanner && view != adMobBanner) {
-		ES_LOG(@"Adding view to ESAdView: %@", view)
-		ES_CHECK_NR(contentView==nil, @"contentView should be nil");
-		contentView = view;
-	}
+	ES_CHECK_NR(view == iAdBanner || view == adMobBanner || view == contentView, @"Don't add custom subviews to ESAdView: %@", view)
 	[super addSubview:view];
 }
-
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event { 
-    ES_LOG(@"touches began"); 
-} 
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    ES_LOG(@"Touches ended");     
-} 
-
 
 - (void)dealloc {
 	contentView = nil;
@@ -67,11 +54,23 @@
 	ESRELEASE(iAdBanner);
 	adMobBanner.delegate = nil;
 	ESRELEASE(adMobBanner);
+	ESRELEASE(controller);
 	[super dealloc];
 }
 
 // Properties
 // ----------
+- (void)setController:(UIViewController *)pcontroller {
+	if (controller != pcontroller) {
+		[controller.view removeFromSuperview];
+		ESRELEASE(controller);
+		controller = [pcontroller retain];
+		contentView = pcontroller.view;
+		pcontroller.view = self;
+		[self addSubview:contentView];
+	}
+}
+
 - (void)requestAdMobAd {
 	if (desiredProvider != ESAdProviderGoogle) return;
 	if (!isCurrentlyShowingAdFullScreen) {
@@ -80,6 +79,7 @@
 	} else {
 		ES_LOG(@"--  Ad viewed in full screen, skipping request for a new AdMob ad")
 	}
+	// Needed only when one configures AdMob to not auto-refresh (online setting)
 //	[self performSelector:@selector(requestAdMobAd) withObject:nil afterDelay:60];
 }
 
@@ -129,7 +129,7 @@
 			frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
 			adMobBanner = [[GADBannerView alloc] initWithFrame:frame];
 			adMobBanner.adUnitID = @"a14e45b7a541ea0";
-			adMobBanner.rootViewController = self.rootViewController;
+			adMobBanner.rootViewController = controller;
 			adMobBanner.delegate = self;
 			adMobBanner.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
 			[self addSubview:adMobBanner];
@@ -149,7 +149,7 @@
 // Composition
 // -----------
 - (void)layoutSubviews {
-	ES_CHECK_NR(contentView!=nil, @"contentView should not be nil");
+	ES_CHECK_NR(controller!=nil, @"controller should not be nil");
 	CGRect contentRect = self.bounds;
 	if (animateAds) {
 		[UIView beginAnimations:nil context:UIGraphicsGetCurrentContext()];
