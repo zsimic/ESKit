@@ -1,10 +1,5 @@
-//
-//  ESNumpad.m
-//  Numerical Pad - a view that shows a numerical keypad on screen and allows to edit numbers
-//
-//  Created by zoran on 12/13/08.
-//  Copyright 2008 eSmiler.com. All rights reserved.
-//
+//  ESNumpad - Numerical pad that automatically appears on bottom of screen (on top of current window)
+//  Created by zoran on 12/13/08. Copyright 2008 esmiler.com. All rights reserved.
 
 #import "ESNumpad.h"
 

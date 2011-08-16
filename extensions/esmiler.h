@@ -1,10 +1,5 @@
-//
-//  esmiler.h
-//  Common utility functions
-//
-//  Created by zoran on 12/31/08.
-//  Copyright 2009 esmiler.com. All rights reserved
-//
+//  esmiler - Useful/handy macros, allow to reduce verbosity when writing, and provide a way to easily write assertions
+//  Created by zoran on 12/31/08. Copyright 2009 esmiler.com. All rights reserved
 
 #import <Foundation/Foundation.h>
 #include "TargetConditionals.h"
@@ -13,10 +8,6 @@
 NSBundle *esBundle;
 
 void setEsBundle(NSString *lang);
-
-//#if (TARGET_IPHONE_SIMULATOR)
-//#define ES_DEBUG 1
-//#endif
 
 // Handy macros
 #define ESFS(msg...) [NSString stringWithFormat:msg]

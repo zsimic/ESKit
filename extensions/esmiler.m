@@ -1,10 +1,5 @@
-//
-//  eSmiler.m
-//  Common utility functions
-//
-//  Created by zoran on 12/31/08.
-//  Copyright 2009 esmiler.com. All rights reserved
-//
+//  esmiler - Useful/handy macros, allow to reduce verbosity when writing, and provide a way to easily write assertions
+//  Created by zoran on 12/31/08. Copyright 2009 esmiler.com. All rights reserved
 
 #import "esmiler.h"
 

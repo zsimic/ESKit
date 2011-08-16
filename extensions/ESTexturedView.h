@@ -1,10 +1,5 @@
-//
-//  ESTexturedView.h - A view that allows to show a movable texture in its background
-//  Currency Master
-//
-//  Created by Zoran Simic on 3/28/10.
-//  Copyright 2010 esmiler.com. All rights reserved.
-//
+//  ESTexturedView - A view that allows to show a movable texture in its background
+//  Created by Zoran Simic on 3/28/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import <UIKit/UIKit.h>
 #import <iAd/iAd.h>

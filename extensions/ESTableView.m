@@ -1,10 +1,5 @@
-//
-//  ESTableView.m
-//  Currency Master
-//
-//  Created by Zoran Simic on 3/26/10.
-//  Copyright 2010 esmiler.com. All rights reserved.
-//
+//  ESTableView - Table View with a customizable background image
+//  Created by Zoran Simic on 3/26/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import "ESTableView.h"
 

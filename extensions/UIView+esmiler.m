@@ -1,10 +1,5 @@
-//
-//  UIView+esmiler.m
-//  Utility drawing routines for custom UIView descendants
-//
-//  Created by zoran on 11/19/08.
-//  Copyright 2009 esmiler.com. All rights reserved
-//
+//  UIView+esmiler - Utility drawing routines for custom UIView descendants
+//  Created by zoran on 11/19/08. Copyright 2009 esmiler.com. All rights reserved
 
 #import "UIView+esmiler.h"
 

@@ -1,10 +1,5 @@
-//
-//  UIImage+esmiler.m
-//  CurrencyMaster
-//
-//  Created by Zoran Simic on 11/29/10.
-//  Copyright 2010 esmiler.com. All rights reserved.
-//
+//  UIImage+esmiler - Adds some convenience functions to UIImage
+//  Created by Zoran Simic on 11/29/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import "UIImage+esmiler.h"
 

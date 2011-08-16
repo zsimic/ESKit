@@ -1,10 +1,5 @@
-//
-//  ESTableViewController.h
-//  Currency Master
-//
-//  Created by Zoran Simic on 3/27/10.
-//  Copyright 2010 esmiler.com. All rights reserved.
-//
+//  ESTableViewController - Table view controller with a background image and easy to set colored header titles
+//  Created by Zoran Simic on 3/27/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import <UIKit/UIKit.h>
 #import "ESTexturedView.h"

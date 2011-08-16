@@ -1,10 +1,5 @@
-//
-//  ESGradient.h
-//  Simple linear gradient
-//
-//  Created by Zoran Simic on 9/19/09.
-//  Copyright 2009 esmiler.com. All rights reserved.
-//
+//  ESGradient - Simplified use cases for linear gradients
+//  Created by Zoran Simic on 9/19/09. Copyright 2009 esmiler.com. All rights reserved.
 
 #import <Foundation/Foundation.h>
 #import "UIView+esmiler.h"

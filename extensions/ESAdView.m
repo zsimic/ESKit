@@ -1,10 +1,5 @@
-//
-//  ESAdView.m
-//  Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
-//
-//  Created by Zoran Simic on 1/1/11.
-//  Copyright 2011 esmiler.com. All rights reserved.
-//
+//  ESAdView - Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
+//  Created by Zoran Simic on 1/1/11. Copyright 2011 esmiler.com. All rights reserved.
 
 #import "ESAdView.h"
 
