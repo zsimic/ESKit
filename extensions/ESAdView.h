@@ -1,9 +1,11 @@
 //  ESAdView - Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
 //  Created by Zoran Simic on 1/1/11. Copyright 2011 esmiler.com. All rights reserved.
 
+#if ES_ADS
+
 #import <UIKit/UIKit.h>
-#import <iAd/iAd.h>
 #import "esmiler.h"
+#import <iAd/iAd.h>
 #import "GADBannerView.h"
 
 typedef enum {
@@ -42,8 +44,10 @@ typedef enum {
 @property (nonatomic, assign) ESAdPlacement adPlacement;
 @property (nonatomic, assign) BOOL animateAds;
 
-+ (ESAdView *)shareAdView;
++ (ESAdView *)sharedAdView;
 + (BOOL)autoRefresh:(ESAdAutoRefresh)pset;
 - (void)updateAdViews;
 
 @end
+
+#endif
