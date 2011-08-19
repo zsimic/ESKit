@@ -61,7 +61,7 @@ NSString *escapedString (NSString *pstring) {
 // Debugging
 // ---------
 void ESDumpDictionary(NSString *pname, NSDictionary *pdict) {
-#ifdef ES_DEBUG
+#if ES_DEBUG
 	ES_LOG(@"Dictionary '%@':", pname);
 	ES_LOG(@"----");
 	for (id pkey in pdict) {

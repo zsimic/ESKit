@@ -45,13 +45,13 @@ void setEsBundle(NSString *lang);
 #endif
 // ----------------
 
-//#if ES_DEBUG
+#if ES_DEBUG
 #define ES_CHECK_NR(cond, msg...) if (!(cond)) { ES_LOG(msg) ES_ASSERT(cond) return; }				// Check for procedures (no return value)
 #define ES_CHECK(cond, ret, msg...) if (!(cond)) { ES_LOG(msg) ES_ASSERT(cond) return (ret); }		// Check with specified return value (when condition fails)
-//#else
-//#define ES_CHECK_NR(cond, msg...)
-//#define ES_CHECK(cond, ret, msg...)
-//#endif
+#else
+#define ES_CHECK_NR(cond, msg...)
+#define ES_CHECK(cond, ret, msg...)
+#endif
 
 // Root of wikipedia pages, optimized for the iPhone
 #define ES_WIKIPEDIA @"http://en.m.wikipedia.org/wiki/"
