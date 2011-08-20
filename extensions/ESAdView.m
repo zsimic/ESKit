@@ -265,9 +265,12 @@
 - (void)adViewDidReceiveAd:(GADBannerView *)view {
 	if (desiredProvider != ESAdProviderGoogle) return;
 	// Retry iAds after ES_IAD_RETRY_THRESHOLD succesful AdMob fetches
-	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT] - 1.0f/ES_IAD_RETRY_THRESHOLD;
-	if (n<-10.0f) n = -10.0f;
-	[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
+	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
+	if (n>1) {
+		n -= 1.0f/ES_IAD_RETRY_THRESHOLD;
+		if (n<-10.0f) n = -10.0f;
+		[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
+	}
 	currentlyShownProvider = ESAdProviderGoogle;
 	isCurrentlyShowingAdFullScreen = NO;
 	[self setNeedsLayout];
@@ -281,9 +284,12 @@
 // examine the hasAutoRefreshed property of the view.
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
 	if (desiredProvider != ESAdProviderGoogle) return;
-	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT] - 1.0f/ES_IAD_RETRY_THRESHOLD;
-	if (n<-10.0f) n = -10.0f;
-	[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
+	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
+	if (n>1) {
+		n -= 1.0f/ES_IAD_RETRY_THRESHOLD;
+		if (n<-10.0f) n = -10.0f;
+		[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
+	}
 	isCurrentlyShowingAdFullScreen = NO;
 	consecutiveAdMobFails++;
 	// We don't set 'currentlyShownProvider' to none when an AdMob ad fails to load because we can let the previous AdMob on screen (not the case with iAds, which disappear by themselves on fail-to-load)
