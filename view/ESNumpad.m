@@ -501,14 +501,20 @@
 	return ptext;
 }
 
+- (char)lastNonNumerical:(NSString *)pstring {
+	for (int i = pstring.length - 1; i>=0; i--) {
+		char c = [pstring characterAtIndex:i];
+		if (c<'0' || c>'9') return c;
+	}
+	return '\0';
+}
+
 - (void)onButton:(ESButton *)pbutton {
 	if (pbutton == bdel) {
 		if (text.length > 0) [text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
-	//} else if (pbutton == bclear) {
-	//	[text setString:@""];
 	} else if (pbutton == bdot) {
-		NSRange rng = [text rangeOfString:self.decimalSeparator];
-		if (rng.length <= 0) [text appendString:self.decimalSeparator];
+		char c = [self lastNonNumerical:text];
+		if (c!='.') [text appendString:self.decimalSeparator];
 	} else if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv || pbutton==bequal) {
 		if (hasCustomButtons) {
 			if (pbutton==bplus) {
@@ -525,8 +531,6 @@
 			return;
 		} else if (text.length>0) {
 			if (pbutton==bequal) {
-				// Calculate
-				// setText
 				if (text.length>=3) {
 					char c = [text characterAtIndex:text.length-1];
 					if (c=='+' || c=='-' || c=='x' || c=='*' || c=='/') {
@@ -542,7 +546,6 @@
 				}
 			} else {
 				char c = [text characterAtIndex:text.length-1];
-//				ES_LOG(@"text='%@' c=%c", text, c)
 				if (c=='.' || (c>='0' && c<='9')) {
 					[text appendString:pbutton.text];
 					if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv) {
