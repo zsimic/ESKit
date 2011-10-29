@@ -27,6 +27,7 @@ typedef enum {
 } ESAdAutoRefresh;
 
 @interface ESAdView : UIView <ADBannerViewDelegate, GADBannerViewDelegate> {
+	NSString *adMobUnitID;					// Unit ID identifying which account to fetch ads for
 	UIView *contentView;					// Content view, weak reference
 	UIViewController *controller;			// Root view controller (needed by the AdMob API)
 	ADBannerView *iAdBanner;				// iAd banner
@@ -40,11 +41,13 @@ typedef enum {
 	int consecutiveAdMobFails;				// Allows to try iAds again after N consecutive AdMob requests fail
 }
 
+@property (nonatomic, retain) NSString *adMobUnitID;
 @property (nonatomic, retain) UIViewController *controller;
 @property (nonatomic, assign) ESAdPlacement adPlacement;
 @property (nonatomic, assign) BOOL animateAds;
 
 + (ESAdView *)sharedAdView;
++ (void)setAdMobUnitID:(NSString *)pid;
 + (BOOL)autoRefresh:(ESAdAutoRefresh)pset;
 - (void)updateAdViews;
 

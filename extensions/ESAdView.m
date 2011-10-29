@@ -13,6 +13,7 @@
 #define ES_IAD_GIVEUP 10.0f				// We stop querying iAds after this many consecutive fails (iAds probably not supported in current country)
 #define ES_IAD_RETRY_THRESHOLD 100.0f	// Retry iAds after this many requests to AdMob (allows to retry iAds every now and then, just in case they become available in country)
 
+@synthesize adMobUnitID;
 @synthesize controller;
 @synthesize adPlacement;
 @synthesize animateAds;
@@ -25,6 +26,10 @@
 		adView = [[ESAdView alloc] initWithFrame:CGRectZero];
 	}
 	return adView;
+}
+
++ (void)setAdMobUnitID:(NSString *)pid {
+	[[ESAdView sharedAdView] setAdMobUnitID:pid];
 }
 
 + (BOOL)autoRefresh:(ESAdAutoRefresh)pset {
@@ -67,6 +72,7 @@
 }
 
 - (void)dealloc {
+	ESRELEASE(adMobUnitID);
 	contentView = nil;
 	iAdBanner.delegate = nil;
 	ESRELEASE(iAdBanner);
@@ -153,7 +159,8 @@
 			frame.size = GAD_SIZE_320x50;
 			frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
 			adMobBanner = [[GADBannerView alloc] initWithFrame:frame];
-			adMobBanner.adUnitID = @"a14e45b7a541ea0";
+			ES_CHECK_NR(adMobUnitID != nil, @"You forgot to set adMobUnitID on your ESAdView, call [ESAdView setAdMobUnitId:yourID]");
+			adMobBanner.adUnitID = adMobUnitID;
 			adMobBanner.rootViewController = controller;
 			adMobBanner.delegate = self;
 			adMobBanner.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
