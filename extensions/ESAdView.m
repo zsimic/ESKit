@@ -52,6 +52,7 @@
 		animateAds = YES;
 		currentlyShownProvider = ESAdProviderNone;
 		isCurrentlyShowingAdFullScreen = NO;
+		iAdFails = 0;
 		consecutiveAdMobFails = 0;
 		iAdSeen = [[NSUserDefaults standardUserDefaults] boolForKey:ES_IAD_SEEN];
 		if (NSClassFromString(@"ADBannerView")==nil) {
@@ -217,6 +218,9 @@
 // ----
 //#pragma mark ADBannerViewDelegate methods
 
+// This method is invoked each time a banner loads a new advertisement. Once a banner has loaded an ad,
+// it will display that ad until another ad is available. The delegate might implement this method if
+// it wished to defer placing the banner in a view hierarchy until the banner has content to display.
 - (void)bannerViewDidLoadAd:(ADBannerView *)banner {
 	if (desiredProvider != ESAdProviderApple) return;
 	if (!iAdSeen) {
@@ -230,18 +234,28 @@
 	ES_LOG(@"<-- Received iAd")
 }
 
+// This method will be invoked when an error has occurred attempting to get advertisement content.
+// The ADError enum lists the possible error codes.
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error {
+	iAdFails++;
 	if (desiredProvider != ESAdProviderApple) return;
 	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT] + 1;
 	[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
 	currentlyShownProvider = ESAdProviderNone;
 	isCurrentlyShowingAdFullScreen = NO;
 	desiredProvider = ESAdProviderGoogle;
-	ES_LOG(@"<+++ iAd reception failed (%f), trying Google", n);
+	ES_LOG(@"<+++ iAd reception failed (%f), trying Google", n)
 	[self updateAdViews];
 	[self setNeedsLayout];
 }
 
+// This message will be sent when the user taps on the banner and some action is to be taken.
+// Actions either display full screen content in a modal session or take the user to a different
+// application. The delegate may return NO to block the action from taking place, but this
+// should be avoided if possible because most advertisements pay significantly more when
+// the action takes place and, over the longer term, repeatedly blocking actions will
+// decrease the ad inventory available to the application. Applications may wish to pause video,
+// audio, or other animated content while the advertisement's action executes.
 - (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave {
 	if (desiredProvider != ESAdProviderApple) return NO;
 	BOOL okToProceed = currentlyShownProvider == ESAdProviderApple;
@@ -255,6 +269,9 @@
 	return okToProceed;
 }
 
+// This message is sent when a modal action has completed and control is returned to the application.
+// Games, media playback, and other activities that were paused in response to the beginning
+// of the action should resume at this point.
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
 	isCurrentlyShowingAdFullScreen = NO;
 	ES_LOG(@"--  Full screen iAd ad closed")
@@ -262,8 +279,6 @@
 
 // AdMob
 // -----
-
-#pragma mark Ad Request Lifecycle Notifications
 
 // Sent when an ad request loaded an ad.  This is a good opportunity to add this
 // view to the hierarchy if it has not yet been added.  If the ad was received
@@ -300,18 +315,15 @@
 	isCurrentlyShowingAdFullScreen = NO;
 	consecutiveAdMobFails++;
 	// We don't set 'currentlyShownProvider' to none when an AdMob ad fails to load because we can let the previous AdMob on screen (not the case with iAds, which disappear by themselves on fail-to-load)
-	if (iAdSeen && (consecutiveAdMobFails>1 || currentlyShownProvider == ESAdProviderNone) && n<ES_IAD_GIVEUP && NSClassFromString(@"ADBannerView")!=nil) {
+	if (iAdSeen && iAdFails==0 && consecutiveAdMobFails>1 && n<ES_IAD_GIVEUP && NSClassFromString(@"ADBannerView")!=nil) {
 		// Swith to iAd only after a certain number of AdMob fails
 		desiredProvider = ESAdProviderApple;
 		[self updateAdViews];
-		consecutiveAdMobFails = 0;
 		ES_LOG(@"<+++ AdMob ad reception failed, trying iAd (iAd fail: %f)", n)
 	} else {
 		ES_LOG(@"<+++ AdMob ad reception failed (iAd fail: %f)", n)
 	}
 }
-
-#pragma mark Click-Time Lifecycle Notifications
 
 // Sent just before presenting the user a full screen view, such as a browser,
 // in response to clicking on an ad.  Use this opportunity to stop animations,

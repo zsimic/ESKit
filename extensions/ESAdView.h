@@ -38,6 +38,7 @@ typedef enum {
 	BOOL animateAds;						// Animate when ads appear/disappear
 	BOOL isCurrentlyShowingAdFullScreen;	// Are we currently showing an ad full screen?
 	BOOL iAdSeen;							// Have we ever seen an iAd (in current country)?
+	int iAdFails;							// Number of times we failed to get an iAd in current session
 	int consecutiveAdMobFails;				// Allows to try iAds again after N consecutive AdMob requests fail
 }
 
