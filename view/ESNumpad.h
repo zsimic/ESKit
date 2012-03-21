@@ -21,6 +21,7 @@
 	int extraButtons;				// Number of extra buttons shown on the right side
 	BOOL hasCustomButtons;
 	int selectedCustomButton;
+	BOOL forwardTouches;			// Forward touches to parent view
 @private
 	NSMutableArray *buttons;		// Buttons composing the numerical pad
 	NSMutableString *text;			// Text of the number being edited
@@ -64,6 +65,7 @@
 @property (nonatomic, assign) int selectedCustomButton;
 @property (nonatomic, assign) BOOL showExtraButtons;
 @property (nonatomic, assign) ESGradientStyle gradientStyle;
+@property (nonatomic, assign) BOOL forwardTouches;
 
 // Initialization
 - (id)initSimple;					// Simple numerical pad: no operations, just numbers, delete and clear

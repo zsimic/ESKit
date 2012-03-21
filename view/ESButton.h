@@ -16,7 +16,7 @@
 	id delegate;				// Delegate called when button is pressed (weak pointer)
 	SEL action;					// Action (selector) to call on 'delegate' when button is pressed
 	float cornerRadius;			// Rounded corners if > 0
-	BOOL forwardTouches;
+	BOOL forwardTouches;		// Forward touches to parent view
 	id data;					// Arbitrary data associated to the button (the button itself does nothing with this) (weak pointer)
 @private
 	BOOL isTouching;

@@ -16,6 +16,7 @@
 @synthesize paddingY;
 @synthesize extraButtons;
 @synthesize selectedCustomButton;
+@synthesize forwardTouches;
 
 // Initialization
 //---------------
@@ -28,7 +29,6 @@
 	pbutton.opaque = YES;
 	pbutton.delegate = self;
 	pbutton.action = @selector(onButton:);
-	pbutton.forwardTouches = YES;
 	[buttons addObject:pbutton];
 	[self addSubview:pbutton];
 	pbutton.hidden = YES;
@@ -415,28 +415,16 @@
 	}
 }
 
+- (void)setForwardTouches:(BOOL)doForwardTouches {
+    int i;
+	forwardTouches = doForwardTouches;
+	for (i = 0; i < buttons.count; i++) {
+		[[buttons objectAtIndex:i] setForwardTouches:doForwardTouches];
+	}
+}
+
 // Operations
 // ----------
-//- (int)indexOf:(NSString *)pstring {
-//	NSMutableString *s = ESAUTO([[NSMutableString alloc] init]);
-//	BOOL wasEscaped = YES;
-//	int n = pstring.length;
-//  int i;
-//	for (i=0; i<n; i++) {
-//		char c = [pstring characterAtIndex:i];
-//		if (c == '-') {
-//			// Do nothing, ignore
-//		} else if ((c>='0' && c<='9') || (c>='A' && c<='Z') || (c>='a' && c<='z')) {
-//			[s appendFormat:@"%c", c];
-//			wasEscaped = NO;
-//		} else if (!wasEscaped) {
-//			[s appendString:@"_"];
-//			wasEscaped = YES;
-//		}
-//		if (s.length>64) return s;
-//	}
-//	return s;
-//}
 
 - (double)calculated:(NSString *)ptext {
 	if (ptext.length<1) return 0;
@@ -447,7 +435,6 @@
 		NSString *s1 = [ptext substringToIndex:rngl.location];
 		NSString *s2 = [ptext substringFromIndex:rngl.location+1];
 		char c = [ptext characterAtIndex:rngl.location];
-//		ES_LOG(@"text='%@' rlen=%i rloc=%i s1='%@' s2='%@' c=%c", ptext, rngl.length, rngl.location, s1, s2, c)
 		if (c=='+') {
 			return [self calculated:s1] + [self calculated:s2];
 		} else {
@@ -611,7 +598,26 @@
 	}
 	if (isLayedOut) [UIView commitAnimations];
 	isLayedOut = YES;
-//	ES_LOG(@"numpad size %g %g", sf.size.width, sf.size.height)
 }
+
+//----------------------
+// Touch event handling
+//----------------------
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (forwardTouches) [self.nextResponder touchesBegan:touches withEvent:event];
+}
+
+- (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (forwardTouches) [self.nextResponder touchesMoved:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (forwardTouches) [self.nextResponder touchesEnded:touches withEvent:event];
+}
+
+- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+	if (forwardTouches) [self.nextResponder touchesCancelled:touches withEvent:event];
+}
+
 
 @end
