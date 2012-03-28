@@ -63,17 +63,11 @@ void setEsBundle(NSString *lang);
 // Quick macro for easy access to bundle version number
 #define EsBuildNumber		[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]
 
-// Devide id stripped of '-' characters (suitable for easy sending in URLs, without encoding)
-#define ESDeviceId			escapedString([[UIDevice currentDevice] uniqueIdentifier])
-
 // Devide model name stripped of 'special' characters (suitable for easy sending in URLs, without encoding)
 #define ESDeviceModel		escapedString([[UIDevice currentDevice] model])
 
 // User name stripped of 'special' characters (suitable for easy sending in URLs, without encoding)
 #define ESDeviceUserName	escapedString([[UIDevice currentDevice] name])
-
-// Full device identification '-' separated id, model and user name, example: 1B25674B421A508184A753D1C92FC235-iPhone_Simulator-iPhone_Simulator
-#define ESDeviceFullId		ESFS(@"%@-%@-%@", ESDeviceId, ESDeviceModel, ESDeviceUserName)
 
 #define ES_isiPhone()		[[[UIDevice currentDevice] model] isEqualToString:@"iPhone"]
 
