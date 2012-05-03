@@ -2,6 +2,7 @@
 //  Created by Zoran Simic on 3/26/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import "ESTableView.h"
+#import "esmiler.h"
 
 @implementation ESTableView
 
@@ -13,20 +14,16 @@
 }
 
 - (void)dealloc {
-	[backgroundImage release];
-	[super dealloc];
+	ESRELEASE(backgroundImage);
+	ES_SUPER_DEALLOC
 }
 
 - (void)setBackgroundImage:(UIImage *)pimage {
 	if (backgroundImage!=pimage) {
-		[backgroundImage release];
-		backgroundImage = [pimage retain];
+		ESRELEASE(backgroundImage);
+		backgroundImage = ESRETAIN(pimage);
 		self.backgroundColor = [UIColor clearColor];
 		[self setNeedsDisplay];
-//		UIImageView *im = [[UIImageView alloc] initWithImage:pimage];
-//		[self addSubview:im];
-//		[self sendSubviewToBack:im];
-//		[im release];
 	}
 }
 

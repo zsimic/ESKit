@@ -52,7 +52,7 @@
 	browser.delegate = nil;
 	ESRELEASE(browser);
 	ESRELEASE(referer);
-    [super dealloc];
+    ES_SUPER_DEALLOC
 }
 
 // Properties

@@ -2,6 +2,7 @@
 //  Created by Zoran Simic on 3/25/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import "UINavigationBar+texture.h"
+#import "esmiler.h"
 
 @interface UIView (EsAddition)
 - (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx;
@@ -23,8 +24,8 @@
 	static UIImage *stored_image = nil;
 	if (pset) {
 		if (stored_image!=pimage) {
-			[stored_image release];
-			stored_image = [pimage retain];
+			ESRELEASE(stored_image);
+			stored_image = ESRETAIN(pimage);
 			[self setNeedsDisplay];
 		}
 	}

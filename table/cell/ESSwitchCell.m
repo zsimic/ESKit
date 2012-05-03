@@ -17,7 +17,7 @@
 
 - (void)dealloc {
 	ESRELEASE(switchView);
-	[super dealloc];
+	ES_SUPER_DEALLOC
 }
 
 + (ESSwitchCell *)getCell:(UITableView *)ptable {

@@ -8,10 +8,10 @@ NSBundle *esBundle = nil;
 void setEsBundle(NSString *lang) {
 	ESRELEASE(esBundle);
 	if (lang==nil) {
-		esBundle = [[NSBundle mainBundle] retain];
+		esBundle = ESRETAIN([NSBundle mainBundle]);
 	} else {
 		NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:ESFS(@"%@.lproj", lang)];
-		esBundle = [[NSBundle bundleWithPath:path] retain];
+		esBundle = ESRETAIN([NSBundle bundleWithPath:path]);
 //		ES_LOG(@"path: %@, bundle: %@", path, esBundle);
 	}
 }

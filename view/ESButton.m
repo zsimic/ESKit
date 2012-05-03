@@ -53,7 +53,7 @@
 	ESRELEASE(gradient);
 	delegate = nil;
 	data = nil;
-    [super dealloc];
+    ES_SUPER_DEALLOC
 }
 
 // ----------
@@ -61,40 +61,40 @@
 // ----------
 - (void) setText:(NSString *)ptext {
 	if (text != ptext) {
-		[text release];
-		text = [ptext retain];
+		ESRELEASE(text);
+		text = ESRETAIN(ptext);
 		[self setNeedsLayout];
 	}
 }
 
 - (void)setImage:(UIImage *)pimage {
 	if (image != pimage) {
-		[image release];
-		image = [pimage retain];
+		ESRELEASE(image);
+		image = ESRETAIN(pimage);
 		[self setNeedsDisplay];
 	}
 }
 
 - (void) setBgColor:(UIColor *)pcolor {
 	if (bgColor != pcolor) {
-		[bgColor release];
-		bgColor = [pcolor retain];
+		ESRELEASE(bgColor);
+		bgColor = ESRETAIN(pcolor);
 		[self setNeedsDisplay];
 	}
 }
 
 - (void) setColor:(UIColor *)pcolor {
 	if (color != pcolor) {
-		[color release];
-		color = [pcolor retain];
+		ESRELEASE(color);
+		color = ESRETAIN(pcolor);
 		[self setNeedsDisplay];
 	}
 }
 
 - (void)setGradient:(ESGradient *)pgradient {
 	if (gradient != pgradient) {
-		[gradient release];
-		gradient = [pgradient retain];
+		ESRELEASE(gradient);
+		gradient = ESRETAIN(pgradient);
 		[self setNeedsDisplay];
 	}
 }
@@ -130,7 +130,12 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	if (forwardTouches) [self.nextResponder touchesEnded:touches withEvent:event];
 	if (!isTouching) return;
-	if (delegate != nil && [delegate respondsToSelector:action]) [delegate performSelector:action withObject:self];
+	if (delegate != nil && [delegate respondsToSelector:action]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+		[delegate performSelector:action withObject:self];
+#pragma clang diagnostic pop
+	}
 	isTouching = NO;
 	[self setNeedsDisplay];
 }

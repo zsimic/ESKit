@@ -18,7 +18,7 @@
 @property (nonatomic, assign) CGSize shadowOffset;
 @property (nonatomic, assign) float xMargin;
 @property (nonatomic, assign) float yMargin;
-@property (nonatomic, assign) ESGradient *gradient;
+@property (nonatomic, retain) ESGradient *gradient;
 @property (nonatomic, assign) float cornerRadius;
 
 @end

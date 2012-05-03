@@ -69,12 +69,12 @@
 }
 
 - (void)setDefaults {				// This is to be called only by the 'init' routines
-	operators = [[NSCharacterSet characterSetWithCharactersInString:@"+-x*/"] retain];
-	lowPriorityOperators = [[NSCharacterSet characterSetWithCharactersInString:@"+-"] retain];
-	highPriorityOperators = [[NSCharacterSet characterSetWithCharactersInString:@"x*/"] retain];
-	textColor = [[UIColor cWhite] retain];
-	numberFont = [[UIFont boldSystemFontOfSize:32] retain];
-	if (extrasFont==nil) extrasFont = [[UIFont boldSystemFontOfSize:32] retain];
+	operators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"+-x*/"]);
+	lowPriorityOperators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"+-"]);
+	highPriorityOperators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"x*/"]);
+	textColor = ESRETAIN([UIColor cWhite]);
+	numberFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
+	if (extrasFont==nil) extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
 	self.backgroundColor = [UIColor clearColor];
 	self.backgroundColor = [UIColor rgb:0x161616];
 	text = [[NSMutableString alloc] initWithCapacity:64];
@@ -137,7 +137,7 @@
 
 - (id)initFull {				// Full numerical pad with +, -, *, /, = operations
     if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
-		extrasFont = [[UIFont boldSystemFontOfSize:32] retain];
+		extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
 		[self setDefaults];
 		marginX = 6;
 		marginY = 6;
@@ -150,7 +150,7 @@
 
 - (id)initWithExtras:(int)pextras {		// Simple numerical pad with curstom extra buttons on the right
     if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
-		extrasFont = [[UIFont boldSystemFontOfSize:24] retain];
+		extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:24]);
 		[self setDefaults];
 		marginX = 5;
 		marginY = 6;
@@ -191,15 +191,15 @@
 	ESRELEASE(operators);
 	ESRELEASE(lowPriorityOperators);
 	ESRELEASE(highPriorityOperators);
-    [super dealloc];
+    ES_SUPER_DEALLOC
 }
 
 // Properties
 // ----------
 - (void)setTextColor:(UIColor *)pcolor {
 	if (textColor!=pcolor) {
-		[textColor release];
-		textColor = [pcolor retain];
+		ESRELEASE(textColor);
+		textColor = ESRETAIN(pcolor);
 		b0.color = pcolor;
 		b1.color = pcolor;
 		b2.color = pcolor;
@@ -231,8 +231,8 @@
 
 - (void)setNumberFont:(UIFont *)pfont {
 	if (numberFont!=pfont) {
-		[numberFont release];
-		numberFont = [pfont retain];
+		ESRELEASE(numberFont);
+		numberFont = ESRETAIN(pfont);
 		b0.font = pfont;
 		b1.font = pfont;
 		b2.font = pfont;
@@ -249,8 +249,8 @@
 
 - (void)setExtrasFont:(UIFont *)pfont {
 	if (extrasFont!=pfont) {
-		[extrasFont release];
-		extrasFont = [pfont retain];
+		ESRELEASE(extrasFont);
+		extrasFont = ESRETAIN(pfont);
 		bplus.font = pfont;
 		bminus.font = pfont;
 		bmult.font = pfont;
@@ -357,8 +357,8 @@
 
 - (void)setButtonFgColor:(UIColor *)pcolor {
 	if (buttonFgColor!=pcolor) {
-		[buttonFgColor release];
-		buttonFgColor = [pcolor retain];
+		ESRELEASE(buttonFgColor);
+		buttonFgColor = ESRETAIN(pcolor);
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
 		b2.bgColor = pcolor;
@@ -381,8 +381,8 @@
 
 - (void)setButtonBgColor:(UIColor *)pcolor {
 	if (buttonBgColor!=pcolor) {
-		[buttonBgColor release];
-		buttonBgColor = [pcolor retain];
+		ESRELEASE(buttonBgColor);
+		buttonBgColor = ESRETAIN(pcolor);
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
 		b2.bgColor = pcolor;

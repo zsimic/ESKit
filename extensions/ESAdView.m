@@ -80,7 +80,7 @@
 	adMobBanner.delegate = nil;
 	ESRELEASE(adMobBanner);
 	ESRELEASE(controller);
-	[super dealloc];
+	ES_SUPER_DEALLOC
 }
 
 // Properties

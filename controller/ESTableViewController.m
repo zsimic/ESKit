@@ -33,7 +33,7 @@
 	ESRELEASE(headers);
 	ESRELEASE(headerTextColor);
 	ESRELEASE(headerFont);
-	[super dealloc];
+	ES_SUPER_DEALLOC
 }
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -76,8 +76,8 @@
 
 - (void)setTableView:(UITableView *)pview {
 	if (tbView!=pview) {
-		[tbView release];
-		tbView = [pview retain];
+		ESRELEASE(tbView);
+		tbView = ESRETAIN(pview);
 	}
 }
 
@@ -93,8 +93,8 @@
 
 - (void)setHeaders:(NSArray *)pheaders {
 	if (headers!=pheaders) {
-		[headers release];
-		headers = [pheaders retain];
+		ESRELEASE(headers);
+		headers = ESRETAIN(pheaders);
 		ESRELEASE(headerViews);
 		if (headers!=nil) {
 			headerViews = [[NSMutableArray alloc] initWithCapacity:headers.count];
@@ -106,7 +106,7 @@
 				if (headerTextColor!=nil) h.textColor = headerTextColor;
 				if (headerFont!=nil) h.label.font = headerFont;
 				[headerViews addObject:h];
-				[h release];
+				ESRELEASE(h);
 			}
 			self.tableView.sectionHeaderHeight = 28;
 			self.tableView.sectionFooterHeight = 4;
@@ -119,8 +119,8 @@
 
 - (void)setHeaderTextColor:(UIColor *)pcolor {
 	if (headerTextColor!=pcolor) {
-		[headerTextColor release];
-		headerTextColor = [pcolor retain];
+		ESRELEASE(headerTextColor);
+		headerTextColor = ESRETAIN(pcolor);
 		if (pcolor!=nil) {
 			for (ESHeaderView *pheader in headerViews) {
 				pheader.textColor = pcolor;
@@ -131,8 +131,8 @@
 
 - (void)setHeaderFont:(UIFont *)pfont {
 	if (headerFont!=pfont) {
-		[headerFont release];
-		headerFont = [pfont retain];
+		ESRELEASE(headerFont);
+		headerFont = ESRETAIN(pfont);
 		if (pfont!=nil) {
 			for (ESHeaderView *pheader in headerViews) {
 				pheader.label.font = pfont;

@@ -11,7 +11,7 @@
 }
 
 @property (nonatomic, retain) NSString *text;
-@property (nonatomic, assign) ESGradient *gradient;
+@property (nonatomic, retain) ESGradient *gradient;
 @property (nonatomic, assign) float cornerRadius;
 
 @end

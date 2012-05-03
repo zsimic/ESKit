@@ -44,7 +44,7 @@
 - (void)dealloc {
 	ESRELEASE(label);
 	ESRELEASE(gradient);
-    [super dealloc];
+    ES_SUPER_DEALLOC
 }
 
 // Properties
@@ -80,7 +80,8 @@
 - (void)setGradient:(ESGradient *)pgradient {
 	ES_CHECK_NR(label!=nil,@"No text in ESHeaderView, can't set gradient")
 	if (gradient != pgradient) {
-		gradient = pgradient;
+		ESRELEASE(gradient);
+		gradient = ESRETAIN(pgradient);
 		[self setNeedsDisplay];
 	}
 }

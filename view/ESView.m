@@ -32,7 +32,7 @@
 - (void)dealloc {
 	ESRELEASE(gradient);
 	ESRELEASE(textLabel);
-    [super dealloc];
+    ES_SUPER_DEALLOC
 }
 
 // Properties
@@ -49,7 +49,8 @@
 
 - (void)setGradient:(ESGradient *)pgradient {
 	if (gradient != pgradient) {
-		gradient = pgradient;
+		ESRELEASE(gradient);
+		gradient = ESRETAIN(pgradient);
 		[self setNeedsDisplay];
 	}
 }

@@ -9,6 +9,19 @@ NSBundle *esBundle;
 
 void setEsBundle(NSString *lang);
 
+#if __has_feature(objc_arc)
+#define ESRETAIN(v)      v
+#define ESRELEASE(v)
+#define ESAUTO(v)        v
+#define ES_SUPER_DEALLOC
+#else
+#define ESRETAIN(v)      [v retain]
+#define ESRELEASE(v)     [v release]; v = nil
+#define ESAUTO(v)        [v autorelease]
+#define ES_SUPER_DEALLOC [super dealloc];
+//#define ESRELEASE(v) if ((v!=nil) && ([v retainCount]==1)) ES_LOG(@"Released %@ *" #v " %@", [v class], [v description]) [v release]; v = nil
+#endif
+
 // Handy macros
 #define ESFS(msg...) [NSString stringWithFormat:msg]
 #define ESViewRep(what, v) ESFS(@"%@: hidden=%i, frame=%1.0f %1.0f %1.0f %1.0f - superview=%@", what, v.hidden, v.frame.origin.x, v.frame.origin.y, v.frame.size.width, v.frame.size.height, [v superview])
@@ -25,9 +38,6 @@ void setEsBundle(NSString *lang);
 #define ES_TRACE(msg...) ES_LOG(msg)
 #define ES_CHECKF(cond, ret, msg...) if (!(cond)) { ES_LOG(msg) ES_ASSERT(cond) return (ret); }		// Check for routines for which checking may have an important performance impact
 
-#define ESRELEASE(v) [v release]; v = nil
-//#define ESRELEASE(v) if ((v!=nil) && ([v retainCount]==1)) ES_LOG(@"Released %@ *" #v " %@", [v class], [v description]) [v release]; v = nil
-
 #define ESCFShow(x) CFShow(x);
 
 // ---------------- Release mode
@@ -37,8 +47,6 @@ void setEsBundle(NSString *lang);
 #define ES_LOG(msg...)
 #define ES_TRACE(msg...)
 #define ES_CHECKF(cond, ret, msg...)
-
-#define ESRELEASE(v) [v release]; v = nil		// One should *always* set to nil released objects, this macro allows to make sure not to forget that
 
 #define ESCFShow(x)
 
@@ -55,10 +63,6 @@ void setEsBundle(NSString *lang);
 
 // Root of wikipedia pages, optimized for the iPhone
 #define ES_WIKIPEDIA @"http://en.m.wikipedia.org/wiki/"
-
-// The following allows to simplify a bit things like [[[MyObject alloc] init] autorelease]; -- one pair of square brackets less
-// It also allows to find all statements of this form quickly, and provides a way to customize this in the future
-#define ESAUTO(v) [v autorelease]
 
 // Quick macro for easy access to bundle version number
 #define EsBuildNumber		[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]

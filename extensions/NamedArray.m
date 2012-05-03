@@ -15,8 +15,8 @@
 
 - (id)initWithName:(NSString *)pname items:(NSMutableArray *)pitems {
 	if (self = [super init]) {
-		name = [pname retain];
-		items = [pitems retain];
+		name = ESRETAIN(pname);
+		items = ESRETAIN(pitems);
 	}
 	return self;
 }
@@ -38,7 +38,7 @@
 - (void)dealloc {
 	ESRELEASE(name);
 	ESRELEASE(items);
-	[super dealloc];
+	ES_SUPER_DEALLOC
 }
 
 // Class methods
