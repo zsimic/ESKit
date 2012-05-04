@@ -89,7 +89,7 @@
 	if (controller != pcontroller) {
 		[controller.view removeFromSuperview];
 		ESRELEASE(controller);
-		controller = [pcontroller retain];
+		controller = ESRETAIN(pcontroller);
 		contentView = pcontroller.view;
 		pcontroller.view = self;
 		[self addSubview:contentView];
