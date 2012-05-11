@@ -11,7 +11,7 @@ void setEsBundle(NSString *lang);
 
 #if __has_feature(objc_arc)
 #define ESRETAIN(v)      v
-#define ESRELEASE(v)
+#define ESRELEASE(v)     v = nil
 #define ESAUTO(v)        v
 #define ES_SUPER_DEALLOC
 #else
