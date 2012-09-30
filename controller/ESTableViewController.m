@@ -45,6 +45,7 @@
 	tbView.delegate = self;
 	tbView.dataSource = self;
 	mainView.view = tbView;
+	self.tableView.backgroundView = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -56,16 +57,6 @@
 	// Releases the view if it doesn't have a superview.
 	[super didReceiveMemoryWarning];
 	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-	ESRELEASE(mainView);
-	ESRELEASE(tbView);
-	ESRELEASE(headers);
-	ESRELEASE(headerTextColor);
-	ESRELEASE(headerFont);
 }
 
 // Properties

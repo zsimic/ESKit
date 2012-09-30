@@ -10,26 +10,28 @@
 
 @implementation UINavigationBar (EsmilerTexture)
 
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-	UIImage *image = [self customBgImage:nil set:NO];
-	if (image==nil) {
-		[super drawLayer:layer inContext:ctx];
-	} else {
-		CGContextScaleCTM(ctx, 1.0f, -1.0f);
-		CGContextDrawImage(ctx, CGRectMake(0, -image.size.height, self.frame.size.width, self.frame.size.height), image.CGImage);
-	}
-}
+//- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+//	UIImage *image = [self customBgImage:nil set:NO];
+//	if (image==nil) {
+//		[super drawLayer:layer inContext:ctx];
+//	} else {
+//		CGContextScaleCTM(ctx, 1.0f, -1.0f);
+//		CGContextDrawImage(ctx, CGRectMake(0, -image.size.height, self.frame.size.width, self.frame.size.height), image.CGImage);
+//	}
+//}
 
 - (UIImage *)customBgImage:(UIImage *)pimage set:(BOOL)pset {
-	static UIImage *stored_image = nil;
-	if (pset) {
-		if (stored_image!=pimage) {
-			ESRELEASE(stored_image);
-			stored_image = ESRETAIN(pimage);
-			[self setNeedsDisplay];
-		}
-	}
-	return stored_image;
+	return pimage;
+//	static UIImage *stored_image = nil;
+//	if (pset) {
+//		if (stored_image!=pimage) {
+//			ESRELEASE(stored_image);
+//			stored_image = ESRETAIN(pimage);
+//			self.shadowImage = pimage;
+//			[self setNeedsDisplay];
+//		}
+//	}
+//	return stored_image;
 }
 
 @end

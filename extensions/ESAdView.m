@@ -102,7 +102,7 @@
 	if (!isCurrentlyShowingAdFullScreen) {
 #if ES_DEBUG
 		GADRequest *request = [GADRequest request];
-		request.testDevices = [NSArray arrayWithObjects:[[UIDevice currentDevice] uniqueIdentifier], GAD_SIMULATOR_ID, nil];
+		//request.testDevices = [NSArray arrayWithObjects:[[UIDevice currentDevice] uniqueIdentifier], GAD_SIMULATOR_ID, nil];
 		[adMobBanner loadRequest:request];
 #else
 		[adMobBanner loadRequest:nil];

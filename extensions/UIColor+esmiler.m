@@ -29,7 +29,7 @@ float checked_rgb(float value);
 }
 
 + (UIColor *)cGray:(float)pvalue alpha:(float)palpha{
-	return [UIColor red:pvalue*255 green:pvalue*255 blue:pvalue*255 alpha:palpha];
+	return [UIColor red:(int)(pvalue*255) green:(int)(pvalue*255) blue:(int)(pvalue*255) alpha:palpha];
 }
 
 + (UIColor *)cGray:(float)pvalue { return [UIColor cGray:pvalue alpha:1.0f]; }

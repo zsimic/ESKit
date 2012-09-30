@@ -2,6 +2,7 @@
 //  Created by zoran on 12/31/08. Copyright 2009 esmiler.com. All rights reserved
 
 #import "esmiler.h"
+#include "ESAdView.h"
 
 NSBundle *esBundle = nil;
 
@@ -32,6 +33,43 @@ NSString *tr(NSString *format, ...) {
 	return s;
 }
 
+UIView *topMostView(UIView *pview) {
+	UIView *topMost = pview;
+	while (topMost) {
+		UIView *parent = topMost.superview;
+		if (!parent) {
+			return topMost;
+		}
+		if ([parent isKindOfClass:[UIWindow class]]) {
+			return topMost;
+		}
+		if ([parent isKindOfClass:[UIViewController class]]) {
+			ES_LOG(@"Found controller")
+		}
+#if ES_ADS
+		if ([parent isKindOfClass:[ESAdView class]]) {
+			return topMost;
+		}
+#endif
+		topMost = parent;
+	}
+	return topMost;
+}
+
+#define CPK_TICKET			@"cpadTicket"
+NSString *getCustomUniqueId(void) {
+	NSString *identifier = ESRETAIN([[NSUserDefaults standardUserDefaults] objectForKey:CPK_TICKET]);
+	if (identifier.length<30) {		// example uid: 04567f1639637f32568b1002874abceeac4d6506
+		CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
+		CFStringRef newUniqueIdString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
+		identifier = ESFS(@"%@-%@", escapedString(ESFS(@"%@", newUniqueIdString)), ESDeviceModel);
+		CFRelease(newUniqueId);
+		CFRelease(newUniqueIdString);
+		[[NSUserDefaults standardUserDefaults] setObject:identifier forKey:CPK_TICKET];
+	}
+	return identifier;
+}
+
 // ----------
 // Formatting
 // ----------
@@ -42,7 +80,7 @@ NSString *escapedString (NSString *pstring) {
 	int n = pstring.length;
     int i;
 	for (i=0; i<n; i++) {
-		char c = [pstring characterAtIndex:i];
+		unichar c = [pstring characterAtIndex:i];
 		if (c == '-') {
 			// Do nothing, ignore
 		} else if ((c>='0' && c<='9') || (c>='A' && c<='Z') || (c>='a' && c<='z')) {

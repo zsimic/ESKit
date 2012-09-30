@@ -428,13 +428,13 @@
 
 - (double)calculated:(NSString *)ptext {
 	if (ptext.length<1) return 0;
-	char c0 = [ptext characterAtIndex:0];
+	unichar c0 = [ptext characterAtIndex:0];
 	NSRange start = NSMakeRange(c0=='-' ? 1 : 0, ptext.length - (c0=='-' ? 1 : 0));
 	NSRange rngl = [ptext rangeOfCharacterFromSet:lowPriorityOperators options:NSLiteralSearch range:start];
 	if (rngl.length>0) {
 		NSString *s1 = [ptext substringToIndex:rngl.location];
 		NSString *s2 = [ptext substringFromIndex:rngl.location+1];
-		char c = [ptext characterAtIndex:rngl.location];
+		unichar c = [ptext characterAtIndex:rngl.location];
 		if (c=='+') {
 			return [self calculated:s1] + [self calculated:s2];
 		} else {
@@ -445,7 +445,7 @@
 		if (rngh.length>0) {
 			NSString *s1 = [ptext substringToIndex:rngh.location];
 			NSString *s2 = [ptext substringFromIndex:rngh.location+1];
-			char c = [ptext characterAtIndex:rngh.location];
+			unichar c = [ptext characterAtIndex:rngh.location];
 			if (c=='x' || c=='*') {
 				return [self calculated:s1] * [self calculated:s2];
 			} else {
@@ -456,8 +456,8 @@
 	return [ptext doubleValue];
 }
 
-- (NSString *)innerSimplified:(NSString *)ptext lastOperator:(char)plast {
-	char c0 = [ptext characterAtIndex:0];
+- (NSString *)innerSimplified:(NSString *)ptext lastOperator:(unichar)plast {
+	unichar c0 = [ptext characterAtIndex:0];
 	NSRange start = NSMakeRange(c0=='-' ? 1 : 0, ptext.length - (c0=='-' ? 1 : 0));
 	if (plast=='+' || plast=='-') {
 		NSRange rng = [ptext rangeOfCharacterFromSet:operators options:NSLiteralSearch range:start];
@@ -467,7 +467,7 @@
 		if (rngl.length>0) {
 			NSString *s1 = [ptext substringToIndex:rngl.location];
 			NSString *s2 = [ptext substringFromIndex:rngl.location+1];
-			char c = [ptext characterAtIndex:rngl.location];
+			unichar c = [ptext characterAtIndex:rngl.location];
 			return ESFS(@"%@%c%g", s1, c, [self calculated:s2]);
 		} else {
 			NSRange rngh = [ptext rangeOfCharacterFromSet:highPriorityOperators options:NSLiteralSearch range:start];
@@ -479,7 +479,7 @@
 
 - (NSString *)simplified:(NSString *)ptext {
 	if (ptext.length<4) return ptext;
-	char c = [ptext characterAtIndex:ptext.length-1];
+	unichar c = [ptext characterAtIndex:ptext.length-1];
 	if (c=='+' || c=='-' || c=='x' || c=='*' || c=='/') {
 		NSString *sub = [ptext substringToIndex:ptext.length-1];
 		NSString *s = [self innerSimplified:sub lastOperator:c];
@@ -488,9 +488,9 @@
 	return ptext;
 }
 
-- (char)lastNonNumerical:(NSString *)pstring {
+- (unichar)lastNonNumerical:(NSString *)pstring {
 	for (int i = pstring.length - 1; i>=0; i--) {
-		char c = [pstring characterAtIndex:i];
+		unichar c = [pstring characterAtIndex:i];
 		if (c<'0' || c>'9') return c;
 	}
 	return '\0';
@@ -500,7 +500,7 @@
 	if (pbutton == bdel) {
 		if (text.length > 0) [text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
 	} else if (pbutton == bdot) {
-		char c = [self lastNonNumerical:text];
+		unichar c = [self lastNonNumerical:text];
 		if (c!='.') [text appendString:self.decimalSeparator];
 	} else if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv || pbutton==bequal) {
 		if (hasCustomButtons) {
@@ -519,12 +519,12 @@
 		} else if (text.length>0) {
 			if (pbutton==bequal) {
 				if (text.length>=3) {
-					char c = [text characterAtIndex:text.length-1];
+					unichar c = [text characterAtIndex:text.length-1];
 					if (c=='+' || c=='-' || c=='x' || c=='*' || c=='/') {
 						// Remove last operation character
 						[text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
 					}
-					char c0 = [text characterAtIndex:0];
+					unichar c0 = [text characterAtIndex:0];
 					NSRange start = NSMakeRange(c0=='-' ? 1 : 0, text.length - (c0=='-' ? 1 : 0));
 					NSRange rng = [text rangeOfCharacterFromSet:operators options:NSLiteralSearch range:start];
 					if (rng.length>0) {
@@ -532,7 +532,7 @@
 					}
 				}
 			} else {
-				char c = [text characterAtIndex:text.length-1];
+				unichar c = [text characterAtIndex:text.length-1];
 				if (c=='.' || (c>='0' && c<='9')) {
 					[text appendString:pbutton.text];
 					if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv) {
