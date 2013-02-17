@@ -136,7 +136,14 @@
 	[mainView setContentOffset:scrollView.contentOffset.y];
 }
 
+#define EMPTY_HEADER_HEIGHT 12
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+	if (!headers) return EMPTY_HEADER_HEIGHT;
+	if (section < headers.count) {
+		NSString *text = [headers objectAtIndex:section];
+		if (!text || !text.length) return EMPTY_HEADER_HEIGHT;
+	}
 	if (headerTextColor!=nil && headerFont!=nil && headerViews!=nil) {
 		return (section==0) ? 29 : 26;
 	} else {
