@@ -1,5 +1,5 @@
-//  ESWebBrowser - Controller showing a web browser full screen with an easy way to browse pages relative to a prefix (example: wikipedia)
-//  Created by Zoran Simic on 3/1/09. Copyright 2009 esmiler.com. All rights reserved
+// ESWebBrowser - Controller showing a web browser full screen with an easy way to browse pages relative to a prefix (example: wikipedia)
+// Created by Zoran Simic on 3/1/09. Copyright 2009 esmiler.com. All rights reserved
 
 #import "ESWebBrowser.h"
 #import "UIColor+esmiler.h"
@@ -34,7 +34,7 @@
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
 		browser = [[UIWebView alloc] init];
 		browser.backgroundColor = [UIColor cWhite];
 		browser.scalesPageToFit = YES;
@@ -104,7 +104,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
 	NSString *html = nil;
 	if (nurl==nil) {
 		html = @"<html><body style=\"font-size:28pt;\"><h1>No URL provided...</h1></body></html>";
@@ -129,7 +129,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+	[super viewWillDisappear:animated];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 

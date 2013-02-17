@@ -1,5 +1,5 @@
-//  ESView - Simple view with an optional gradient filled background and an optional text label
-//  Created by Zoran Simic on 9/21/09. Copyright 2009 esmiler.com. All rights reserved.
+// ESView - Simple view with an optional gradient filled background and an optional text label
+// Created by Zoran Simic on 9/21/09. Copyright 2009 esmiler.com. All rights reserved.
 
 #import "ESView.h"
 
@@ -16,17 +16,17 @@
 }
 
 - (id)initWithFrame:(CGRect)frame {
-    if ((self = [super initWithFrame:frame])) {
+	if ((self = [super initWithFrame:frame])) {
 		[self initialize];
-    }
-    return self;
+	}
+	return self;
 }
 
 - (id)init {
-    if ((self = [super init])) {
+	if ((self = [super init])) {
 		[self initialize];
-    }
-    return self;
+	}
+	return self;
 }
 
 // Properties

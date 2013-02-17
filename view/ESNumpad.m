@@ -1,5 +1,5 @@
-//  ESNumpad - Numerical pad that automatically appears on bottom of screen (on top of current window)
-//  Created by zoran on 12/13/08. Copyright 2008 esmiler.com. All rights reserved.
+// ESNumpad - Numerical pad that automatically appears on bottom of screen (on top of current window)
+// Created by zoran on 12/13/08. Copyright 2008 esmiler.com. All rights reserved.
 
 #import "ESNumpad.h"
 
@@ -129,14 +129,14 @@
 }
 
 - (id)initSimple {				// Simple numerical pad: no operations, just numbers, delete and clear
-    if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 180)])) {
+	if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 180)])) {
 		[self setDefaults];
 	}
 	return self;
 }
 
 - (id)initFull {				// Full numerical pad with +, -, *, /, = operations
-    if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
+	if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
 		extrasFont = [UIFont boldSystemFontOfSize:32];
 		[self setDefaults];
 		marginX = 6;
@@ -149,7 +149,7 @@
 }
 
 - (id)initWithExtras:(int)pextras {		// Simple numerical pad with curstom extra buttons on the right
-    if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
+	if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
 		extrasFont = [UIFont boldSystemFontOfSize:24];
 		[self setDefaults];
 		marginX = 5;
@@ -379,7 +379,7 @@
 }
 
 - (void)setForwardTouches:(BOOL)doForwardTouches {
-    int i;
+	int i;
 	forwardTouches = doForwardTouches;
 	for (i = 0; i < buttons.count; i++) {
 		[[buttons objectAtIndex:i] setForwardTouches:doForwardTouches];
@@ -518,7 +518,7 @@
 }
 
 - (void)cancelTouching {
-    int i;
+	int i;
 	for (i = 0; i < buttons.count; i++) {
 		[[buttons objectAtIndex:i] cancelTouching];
 	}
@@ -548,7 +548,7 @@
 	}
 	float sx = extraButtons>0 ? 3.6f : 3;
 	float sy = extraButtons>0 ? 4 : 4;
-    int i;
+	int i;
 	for (i = 0; i < buttons.count; i++) {
 		CGRect f = bframes[i];
 		float dx = (sf.size.width - 2*marginX - (sx-1)*paddingX) / sx;

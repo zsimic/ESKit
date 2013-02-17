@@ -1,5 +1,5 @@
-//  ESButton - Simplified button, allows to make buttons with background images and/or gradients on the fly, simpler than UIButton
-//  Created by zoran on 12/28/08. Copyright 2008 esmiler.com. All rights reserved.
+// ESButton - Simplified button, allows to make buttons with background images and/or gradients on the fly, simpler than UIButton
+// Created by zoran on 12/28/08. Copyright 2008 esmiler.com. All rights reserved.
 
 #import "ESButton.h"
 
@@ -29,7 +29,7 @@
 }
 
 - (id) initWithFrame:(CGRect)pframe {
-    if ((self = [super initWithFrame:pframe])) {
+	if ((self = [super initWithFrame:pframe])) {
 		self.font = [UIFont systemFontOfSize:[UIFont buttonFontSize]];
 		self.color = [UIColor cBlack];
 		self.highlightColor = [UIColor cHighlightBlue];
@@ -39,8 +39,8 @@
 		self.contentMode = UIViewContentModeRedraw;
 		self.backgroundColor = [UIColor clearColor];
 		self.userInteractionEnabled = YES;
-    }
-    return self;
+	}
+	return self;
 }
 
 // ----------

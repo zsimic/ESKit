@@ -1,5 +1,5 @@
-//  ESHeaderView - View designed to be used as table header or footer
-//  Created by Zoran Simic on 9/13/09. Copyright 2009 esmiler.com. All rights reserved
+// ESHeaderView - View designed to be used as table header or footer
+// Created by Zoran Simic on 9/13/09. Copyright 2009 esmiler.com. All rights reserved
 
 #import <UIKit/UIKit.h>
 #import "ESGradient.h"

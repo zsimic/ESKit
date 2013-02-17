@@ -1,5 +1,5 @@
-//  ESGradient - Simplified use cases for linear gradients
-//  Created by Zoran Simic on 9/19/09. Copyright 2009 esmiler.com. All rights reserved.
+// ESGradient - Simplified use cases for linear gradients
+// Created by Zoran Simic on 9/19/09. Copyright 2009 esmiler.com. All rights reserved.
 
 #import "ESGradient.h"
 
@@ -12,11 +12,11 @@
 // Initialization
 // --------------
 - (id)init {
-    if ((self = [super init])) {
+	if ((self = [super init])) {
 		style = ESGradientStylePlastic;
 		force = 10;
-    }
-    return self;
+	}
+	return self;
 }
 
 // ---------
@@ -55,7 +55,7 @@
 			e2 = 0.04f;
 			e3 = 0.04f;
 			e4 = 0.0f;
-		} else 	if (brightness < 0.8) {
+		} else if (brightness < 0.8) {
 			e0 = 0.26f;
 			e1 = 0.08f;
 			e2 = 0.0f;

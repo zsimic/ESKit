@@ -1,5 +1,5 @@
-//  ESTableViewController - Table view controller with a background image and easy to set colored header titles
-//  Created by Zoran Simic on 3/27/10. Copyright 2010 esmiler.com. All rights reserved.
+// ESTableViewController - Table view controller with a background image and easy to set colored header titles
+// Created by Zoran Simic on 3/27/10. Copyright 2010 esmiler.com. All rights reserved.
 
 #import "ESTableViewController.h"
 #import "ESHeaderView.h"
@@ -121,7 +121,7 @@
 
 // Table controller routines, you need to redefine those
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return headers.count;
+	return headers.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

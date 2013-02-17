@@ -1,5 +1,5 @@
-//  NamedArray - Simple array of objects with a name
-//  Created by Zoran Simic on 9/29/09. Copyright 2009 esmiler.com. All rights reserved.
+// NamedArray - Simple array of objects with a name
+// Created by Zoran Simic on 9/29/09. Copyright 2009 esmiler.com. All rights reserved.
 
 #import "NamedArray.h"
 

@@ -1,5 +1,5 @@
-//  ESSwitchCell - UITableViewCell with an on/off switch
-//  Created by Zoran Simic on 11/9/09. Copyright 2009 esmiler.com. All rights reserved.
+// ESSwitchCell - UITableViewCell with an on/off switch
+// Created by Zoran Simic on 11/9/09. Copyright 2009 esmiler.com. All rights reserved.
 
 #import "ESSwitchCell.h"
 
@@ -8,11 +8,11 @@
 // Initialization
 // --------------
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+	if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 		switchView = [[UISwitch alloc] init];
 		[self.contentView addSubview:switchView];
-    }
-    return self;
+	}
+	return self;
 }
 
 + (ESSwitchCell *)getCell:(UITableView *)ptable {
@@ -20,7 +20,7 @@
 	ESSwitchCell *cell = (ESSwitchCell *)[ptable dequeueReusableCellWithIdentifier:cellId];
 	if (cell == nil) {
 		cell = [[ESSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
-    }
+	}
 	return cell;
 }
 

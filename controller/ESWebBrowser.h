@@ -1,5 +1,5 @@
-//  ESWebBrowser - Controller showing a web browser full screen with an easy way to browse pages relative to a prefix (example: wikipedia)
-//  Created by Zoran Simic on 3/1/09. Copyright 2009 esmiler.com. All rights reserved
+// ESWebBrowser - Controller showing a web browser full screen with an easy way to browse pages relative to a prefix (example: wikipedia)
+// Created by Zoran Simic on 3/1/09. Copyright 2009 esmiler.com. All rights reserved
 
 #import <UIKit/UIKit.h>
 

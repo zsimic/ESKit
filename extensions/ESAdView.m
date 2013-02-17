@@ -1,5 +1,5 @@
-//  ESAdView - Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
-//  Created by Zoran Simic on 1/1/11. Copyright 2011 esmiler.com. All rights reserved.
+// ESAdView - Allows to have one ad view appearing (top or bottom) and staying across views in an UINavigationController
+// Created by Zoran Simic on 1/1/11. Copyright 2011 esmiler.com. All rights reserved.
 
 #if ES_ADS
 
@@ -42,7 +42,7 @@
 	} else if (pset==ESAdAutoRefreshOff) {
 		isAutoRefreshOn = NO;
 	}
-	return  isAutoRefreshOn;
+	return isAutoRefreshOn;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -102,7 +102,7 @@
 #endif
 		ES_LOG(@"--> Requesting ad from AdMob")
 	} else {
-		ES_LOG(@"--  Ad viewed in full screen, skipping request for a new AdMob ad")
+		ES_LOG(@"--- Ad viewed in full screen, skipping request for a new AdMob ad")
 	}
 	// Needed only when one configures AdMob to not auto-refresh (online setting)
 //	[self performSelector:@selector(requestAdMobAd) withObject:nil afterDelay:60];
@@ -254,10 +254,10 @@
 	BOOL okToProceed = currentlyShownProvider == ESAdProviderApple;
 	if (willLeave) {
 		isCurrentlyShowingAdFullScreen = NO;
-		ES_LOG(@"--  Leaving app because of iAd ad click: %i", okToProceed)
+		ES_LOG(@"--- Leaving app because of iAd ad click: %i", okToProceed)
 	} else {
 		isCurrentlyShowingAdFullScreen = YES;
-		ES_LOG(@"--  Full screen iAd open: %i", okToProceed)
+		ES_LOG(@"--- Full screen iAd open: %i", okToProceed)
 	}
 	return okToProceed;
 }
@@ -267,14 +267,14 @@
 // of the action should resume at this point.
 - (void)bannerViewActionDidFinish:(ADBannerView *)banner {
 	isCurrentlyShowingAdFullScreen = NO;
-	ES_LOG(@"--  Full screen iAd ad closed")
+	ES_LOG(@"--- Full screen iAd ad closed")
 }
 
 // AdMob
 // -----
 
-// Sent when an ad request loaded an ad.  This is a good opportunity to add this
-// view to the hierarchy if it has not yet been added.  If the ad was received
+// Sent when an ad request loaded an ad. This is a good opportunity to add this
+// view to the hierarchy if it has not yet been added. If the ad was received
 // as a part of the server-side auto refreshing, you can examine the
 // hasAutoRefreshed property of the view.
 - (void)adViewDidReceiveAd:(GADBannerView *)view {
@@ -293,8 +293,8 @@
 	ES_LOG(@"<-- Received AdMob ad (iAd fail: %f)", n);
 }
 
-// Sent when an ad request failed.  Normally this is because no network
-// connection was available or no ads were available (i.e. no fill).  If the
+// Sent when an ad request failed. Normally this is because no network
+// connection was available or no ads were available (i.e. no fill). If the
 // error was received as a part of the server-side auto refreshing, you can
 // examine the hasAutoRefreshed property of the view.
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
@@ -319,34 +319,34 @@
 }
 
 // Sent just before presenting the user a full screen view, such as a browser,
-// in response to clicking on an ad.  Use this opportunity to stop animations,
+// in response to clicking on an ad. Use this opportunity to stop animations,
 // time sensitive interactions, etc.
 //
 // Normally the user looks at the ad, dismisses it, and control returns to your
-// application by calling adViewDidDismissScreen:.  However if the user hits the
-// Home button or clicks on an App Store link your application will end.  On iOS
+// application by calling adViewDidDismissScreen:. However if the user hits the
+// Home button or clicks on an App Store link your application will end. On iOS
 // 4.0+ the next method called will be applicationWillResignActive: of your
-// UIViewController (UIApplicationWillResignActiveNotification).  Immediately
+// UIViewController (UIApplicationWillResignActiveNotification). Immediately
 // after that adViewWillLeaveApplication: is called.
 - (void)adViewWillPresentScreen:(GADBannerView *)adView {
 	isCurrentlyShowingAdFullScreen = YES;
-	ES_LOG(@"--  Showing full screen AdMob ad")
+	ES_LOG(@"--- Showing full screen AdMob ad")
 }
 
-// Sent just after dismissing a full screen view.  Use this opportunity to
+// Sent just after dismissing a full screen view. Use this opportunity to
 // restart anything you may have stopped as part of adViewWillPresentScreen:.
 - (void)adViewDidDismissScreen:(GADBannerView *)adView {
 	isCurrentlyShowingAdFullScreen = NO;
-	ES_LOG(@"--  Full screen AdMob ad closed")
+	ES_LOG(@"--- Full screen AdMob ad closed")
 }
 
 // Sent just before the application will background or terminate because the
 // user clicked on an ad that will launch another application (such as the App
-// Store).  The normal UIApplicationDelegate methods, like
+// Store). The normal UIApplicationDelegate methods, like
 // applicationDidEnterBackground:, will be called immediately before this.
 - (void)adViewWillLeaveApplication:(GADBannerView *)adView {
 	isCurrentlyShowingAdFullScreen = NO;
-	ES_LOG(@"--  Leaving app because of AdMob ad click")
+	ES_LOG(@"--- Leaving app because of AdMob ad click")
 }
 
 @end

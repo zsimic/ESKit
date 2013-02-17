@@ -1,5 +1,5 @@
-//  UIColor+eSmiler - Adds some convenience functions to UIColor
-//  Created by zoran on 11/19/08. Copyright 2009 esmiler.com. All rights reserved
+// UIColor+eSmiler - Adds some convenience functions to UIColor
+// Created by zoran on 11/19/08. Copyright 2009 esmiler.com. All rights reserved
 
 #import <UIKit/UIKit.h>
 #import "esmiler.h"
