@@ -73,14 +73,8 @@
 }
 
 - (void)dealloc {
-	ESRELEASE(adMobUnitID);
-	contentView = nil;
 	iAdBanner.delegate = nil;
-	ESRELEASE(iAdBanner);
 	adMobBanner.delegate = nil;
-	ESRELEASE(adMobBanner);
-	ESRELEASE(controller);
-	ES_SUPER_DEALLOC
 }
 
 // Properties
@@ -88,8 +82,7 @@
 - (void)setController:(UIViewController *)pcontroller {
 	if (controller != pcontroller) {
 		[controller.view removeFromSuperview];
-		ESRELEASE(controller);
-		controller = ESRETAIN(pcontroller);
+		controller = pcontroller;
 		contentView = pcontroller.view;
 		pcontroller.view = self;
 		[self addSubview:contentView];
@@ -120,7 +113,7 @@
 		if (iAdBanner != nil) {
 			[iAdBanner removeFromSuperview];
 			iAdBanner.delegate = nil;
-			ESRELEASE(iAdBanner);
+			iAdBanner = nil;
 			currentlyShownProvider = ESAdProviderNone;
 			[self setNeedsLayout];
 		}
@@ -129,7 +122,7 @@
 		if (adMobBanner != nil) {
 			[adMobBanner removeFromSuperview];
 			adMobBanner.delegate = nil;
-			ESRELEASE(adMobBanner);
+			adMobBanner = nil;
 			currentlyShownProvider = ESAdProviderNone;
 			[self setNeedsLayout];
 		}

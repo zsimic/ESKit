@@ -41,12 +41,6 @@
 //	return self;
 //}
 
-- (void)dealloc {
-	ESRELEASE(label);
-	ESRELEASE(gradient);
-    ES_SUPER_DEALLOC
-}
-
 // Properties
 // ----------
 - (NSString *)text {
@@ -80,8 +74,7 @@
 - (void)setGradient:(ESGradient *)pgradient {
 	ES_CHECK_NR(label!=nil,@"No text in ESHeaderView, can't set gradient")
 	if (gradient != pgradient) {
-		ESRELEASE(gradient);
-		gradient = ESRETAIN(pgradient);
+		gradient = pgradient;
 		[self setNeedsDisplay];
 	}
 }
@@ -97,7 +90,6 @@
 	b.origin.y = yMargin >= 0 ? yMargin : b.size.height - ts.height + yMargin;
 	b.size.width -= b.origin.x * 2;
 	b.size.height = ts.height;
-//	NSLog(@"text: %@ w: %f h: %f b: %@", label.text, ts.width, ts.height, ESRectRep(b));
 	label.frame = b;
 }
 

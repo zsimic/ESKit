@@ -13,7 +13,7 @@
 // Initialization
 // --------------
 + (ESWebBrowser *)withPrefix:(NSString *)pprefix relativePath:(NSString *)prelativePath {
-	ESWebBrowser *b = ESAUTO([[ESWebBrowser alloc] initWithNibName:nil bundle:nil]);
+	ESWebBrowser *b = [[ESWebBrowser alloc] initWithNibName:nil bundle:nil];
 	b.prefix = pprefix;
 	b.relativePath = prelativePath;
 	return b;
@@ -28,7 +28,7 @@
 }
 
 + (ESWebBrowser *)withFileNamed:(NSString *)pname {
-	ESWebBrowser *b = ESAUTO([[ESWebBrowser alloc] initWithNibName:nil bundle:nil]);
+	ESWebBrowser *b = [[ESWebBrowser alloc] initWithNibName:nil bundle:nil];
 	b.nurl = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:pname ofType:@"html"]];
 	return b;
 }
@@ -47,12 +47,7 @@
 }
 
 - (void)dealloc {
-	ESRELEASE(nurl);
-	ESRELEASE(prefix);
 	browser.delegate = nil;
-	ESRELEASE(browser);
-	ESRELEASE(referer);
-    ES_SUPER_DEALLOC
 }
 
 // Properties

@@ -22,7 +22,7 @@
 // Initialization
 // --------------
 + (id) withDelegate:(id)pdelegate action:(SEL)paction {
-	ESButton *b = ESAUTO([[ESButton alloc] init]);
+	ESButton *b = [[ESButton alloc] init];
 	b.delegate = pdelegate;
 	b.action = paction;
 	return b;
@@ -43,58 +43,40 @@
     return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(text);
-	ESRELEASE(image);
-	ESRELEASE(font);
-	ESRELEASE(color);
-	ESRELEASE(bgColor);
-	ESRELEASE(highlightColor);
-	ESRELEASE(gradient);
-	delegate = nil;
-	data = nil;
-    ES_SUPER_DEALLOC
-}
-
 // ----------
 // Properties
 // ----------
 - (void) setText:(NSString *)ptext {
 	if (text != ptext) {
-		ESRELEASE(text);
-		text = ESRETAIN(ptext);
+		text = ptext;
 		[self setNeedsLayout];
 	}
 }
 
 - (void)setImage:(UIImage *)pimage {
 	if (image != pimage) {
-		ESRELEASE(image);
-		image = ESRETAIN(pimage);
+		image = pimage;
 		[self setNeedsDisplay];
 	}
 }
 
 - (void) setBgColor:(UIColor *)pcolor {
 	if (bgColor != pcolor) {
-		ESRELEASE(bgColor);
-		bgColor = ESRETAIN(pcolor);
+		bgColor = pcolor;
 		[self setNeedsDisplay];
 	}
 }
 
 - (void) setColor:(UIColor *)pcolor {
 	if (color != pcolor) {
-		ESRELEASE(color);
-		color = ESRETAIN(pcolor);
+		color = pcolor;
 		[self setNeedsDisplay];
 	}
 }
 
 - (void)setGradient:(ESGradient *)pgradient {
 	if (gradient != pgradient) {
-		ESRELEASE(gradient);
-		gradient = ESRETAIN(pgradient);
+		gradient = pgradient;
 		[self setNeedsDisplay];
 	}
 }

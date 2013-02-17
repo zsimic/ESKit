@@ -17,19 +17,12 @@
 	return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(view);
-	ESRELEASE(texture);
-	ES_SUPER_DEALLOC
-}
-
 // Properties
 // ----------
 - (void)setView:(UIView *)pview {
 	if (view!=pview) {
 		[view removeFromSuperview];
-		ESRELEASE(view);
-		view = ESRETAIN(pview);
+		view = pview;
 		[self addSubview:pview];
 		[self setNeedsLayout];
 	}
@@ -37,8 +30,7 @@
 
 - (void)setTexture:(UIImage *)ptexture {
 	if (texture!=ptexture) {
-		ESRELEASE(texture);
-		texture = ESRETAIN(ptexture);
+		texture = ptexture;
 		textureRect.size = texture.size;
 		textureRect.origin.y = -200;
 		[self setNeedsDisplay];

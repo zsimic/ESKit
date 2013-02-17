@@ -15,16 +15,11 @@
     return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(switchView);
-	ES_SUPER_DEALLOC
-}
-
 + (ESSwitchCell *)getCell:(UITableView *)ptable {
 	static NSString *cellId = @"ESSwitchCell";
 	ESSwitchCell *cell = (ESSwitchCell *)[ptable dequeueReusableCellWithIdentifier:cellId];
 	if (cell == nil) {
-		cell = ESAUTO([[ESSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId]);
+		cell = [[ESSwitchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
     }
 	return cell;
 }

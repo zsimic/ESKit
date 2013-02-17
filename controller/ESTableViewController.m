@@ -27,15 +27,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(mainView);
-	ESRELEASE(tbView);
-	ESRELEASE(headers);
-	ESRELEASE(headerTextColor);
-	ESRELEASE(headerFont);
-	ES_SUPER_DEALLOC
-}
-
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView {
 	mainView = [[ESTexturedView alloc] initWithFrame:CGRectZero];
@@ -66,10 +57,7 @@
 }
 
 - (void)setTableView:(UITableView *)pview {
-	if (tbView!=pview) {
-		ESRELEASE(tbView);
-		tbView = ESRETAIN(pview);
-	}
+	tbView = pview;
 }
 
 - (UIImage *)bgImage {
@@ -83,21 +71,19 @@
 }
 
 - (void)setHeaders:(NSArray *)pheaders {
-	if (headers!=pheaders) {
-		ESRELEASE(headers);
-		headers = ESRETAIN(pheaders);
-		ESRELEASE(headerViews);
-		if (headers!=nil) {
+	if (headers != pheaders) {
+		headers = pheaders;
+		headerViews = nil;
+		if (headers != nil) {
 			headerViews = [[NSMutableArray alloc] initWithCapacity:headers.count];
 			for	(NSString *pname in headers) {
 				ESHeaderView *h = [[ESHeaderView alloc] init];
 				h.yMargin = -2;
 				h.text = pname;
 				h.shadowOffset = CGSizeMake(1, 1);
-				if (headerTextColor!=nil) h.textColor = headerTextColor;
-				if (headerFont!=nil) h.label.font = headerFont;
+				if (headerTextColor != nil) h.textColor = headerTextColor;
+				if (headerFont != nil) h.label.font = headerFont;
 				[headerViews addObject:h];
-				ESRELEASE(h);
 			}
 			self.tableView.sectionHeaderHeight = 28;
 			self.tableView.sectionFooterHeight = 4;
@@ -109,10 +95,9 @@
 }
 
 - (void)setHeaderTextColor:(UIColor *)pcolor {
-	if (headerTextColor!=pcolor) {
-		ESRELEASE(headerTextColor);
-		headerTextColor = ESRETAIN(pcolor);
-		if (pcolor!=nil) {
+	if (headerTextColor != pcolor) {
+		headerTextColor = pcolor;
+		if (pcolor != nil) {
 			for (ESHeaderView *pheader in headerViews) {
 				pheader.textColor = pcolor;
 			}
@@ -121,10 +106,9 @@
 }
 
 - (void)setHeaderFont:(UIFont *)pfont {
-	if (headerFont!=pfont) {
-		ESRELEASE(headerFont);
-		headerFont = ESRETAIN(pfont);
-		if (pfont!=nil) {
+	if (headerFont != pfont) {
+		headerFont = pfont;
+		if (pfont != nil) {
 			for (ESHeaderView *pheader in headerViews) {
 				pheader.label.font = pfont;
 			}

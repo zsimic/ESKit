@@ -7,28 +7,24 @@
 NSBundle *esBundle = nil;
 
 void setEsBundle(NSString *lang) {
-	ESRELEASE(esBundle);
-	if (lang==nil) {
-		esBundle = ESRETAIN([NSBundle mainBundle]);
+	if (lang == nil) {
+		esBundle = [NSBundle mainBundle];
 	} else {
 		NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:ESFS(@"%@.lproj", lang)];
-		esBundle = ESRETAIN([NSBundle bundleWithPath:path]);
+		esBundle = [NSBundle bundleWithPath:path];
 //		ES_LOG(@"path: %@, bundle: %@", path, esBundle);
 	}
 }
 
 // Text translated in current language
 NSString *tr(NSString *format, ...) {
-	// TODO: get translation of 'format' and return it
-	//#define NSLocalizedString(key, comment) \
-	//	    [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 	NSString *tf = format;
-	if (esBundle!=nil) {
+	if (esBundle != nil) {
 		tf = [esBundle localizedStringForKey:format value:nil table:nil];
 	}
 	va_list args;
 	va_start(args, format);
-	NSString *s = ESAUTO([[NSString alloc] initWithFormat:tf arguments:args]);
+	NSString *s = [[NSString alloc] initWithFormat:tf arguments:args];
 	va_end(args);
 	return s;
 }
@@ -58,7 +54,7 @@ UIView *topMostView(UIView *pview) {
 
 #define CPK_TICKET			@"cpadTicket"
 NSString *getCustomUniqueId(void) {
-	NSString *identifier = ESRETAIN([[NSUserDefaults standardUserDefaults] objectForKey:CPK_TICKET]);
+	NSString *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:CPK_TICKET];
 	if (identifier.length<30) {		// example uid: 04567f1639637f32568b1002874abceeac4d6506
 		CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
 		CFStringRef newUniqueIdString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
@@ -75,7 +71,7 @@ NSString *getCustomUniqueId(void) {
 // ----------
 // String with all non alpha-numeric characters removed
 NSString *escapedString (NSString *pstring) {
-	NSMutableString *s = ESAUTO([[NSMutableString alloc] init]);
+	NSMutableString *s = [[NSMutableString alloc] init];
 	BOOL wasEscaped = YES;
 	int n = pstring.length;
     int i;

@@ -15,8 +15,8 @@
 
 - (id)initWithName:(NSString *)pname items:(NSMutableArray *)pitems {
 	if (self = [super init]) {
-		name = ESRETAIN(pname);
-		items = ESRETAIN(pitems);
+		name = pname;
+		items = pitems;
 	}
 	return self;
 }
@@ -35,16 +35,10 @@
 	return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(name);
-	ESRELEASE(items);
-	ES_SUPER_DEALLOC
-}
-
 // Class methods
 // -------------
 + (NamedArray *)withName:(NSString *)pname, ... {
-	NamedArray *a = ESAUTO([[NamedArray alloc] initWithName:pname items:nil]);
+	NamedArray *a = [[NamedArray alloc] initWithName:pname items:nil];
 	return a;
 }
 

@@ -25,8 +25,7 @@
 //	static UIImage *stored_image = nil;
 //	if (pset) {
 //		if (stored_image!=pimage) {
-//			ESRELEASE(stored_image);
-//			stored_image = ESRETAIN(pimage);
+//			stored_image = pimage;
 //			self.shadowImage = pimage;
 //			[self setNeedsDisplay];
 //		}

@@ -29,12 +29,6 @@
     return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(gradient);
-	ESRELEASE(textLabel);
-    ES_SUPER_DEALLOC
-}
-
 // Properties
 // ----------
 - (NSString *)text {
@@ -49,8 +43,7 @@
 
 - (void)setGradient:(ESGradient *)pgradient {
 	if (gradient != pgradient) {
-		ESRELEASE(gradient);
-		gradient = ESRETAIN(pgradient);
+		gradient = pgradient;
 		[self setNeedsDisplay];
 	}
 }

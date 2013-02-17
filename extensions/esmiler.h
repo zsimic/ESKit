@@ -11,19 +11,6 @@ void setEsBundle(NSString *lang);
 UIView *topMostView(UIView *pview);
 NSString *getCustomUniqueId(void);
 
-#if __has_feature(objc_arc)
-#define ESRETAIN(v)      v
-#define ESRELEASE(v)     v = nil
-#define ESAUTO(v)        v
-#define ES_SUPER_DEALLOC
-#else
-#define ESRETAIN(v)      [v retain]
-#define ESRELEASE(v)     [v release]; v = nil
-#define ESAUTO(v)        [v autorelease]
-#define ES_SUPER_DEALLOC [super dealloc];
-//#define ESRELEASE(v) if ((v!=nil) && ([v retainCount]==1)) ES_LOG(@"Released %@ *" #v " %@", [v class], [v description]) [v release]; v = nil
-#endif
-
 // Handy macros
 #define ESFS(msg...) [NSString stringWithFormat:msg]
 #define ESViewRep(what, v) ESFS(@"%@: hidden=%i, frame=%1.0f %1.0f %1.0f %1.0f - superview=%@", what, v.hidden, v.frame.origin.x, v.frame.origin.y, v.frame.size.width, v.frame.size.height, [v superview])

@@ -69,12 +69,12 @@
 }
 
 - (void)setDefaults {				// This is to be called only by the 'init' routines
-	operators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"+-x*/"]);
-	lowPriorityOperators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"+-"]);
-	highPriorityOperators = ESRETAIN([NSCharacterSet characterSetWithCharactersInString:@"x*/"]);
-	textColor = ESRETAIN([UIColor cWhite]);
-	numberFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
-	if (extrasFont==nil) extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
+	operators = [NSCharacterSet characterSetWithCharactersInString:@"+-x*/"];
+	lowPriorityOperators = [NSCharacterSet characterSetWithCharactersInString:@"+-"];
+	highPriorityOperators = [NSCharacterSet characterSetWithCharactersInString:@"x*/"];
+	textColor = [UIColor cWhite];
+	numberFont = [UIFont boldSystemFontOfSize:32];
+	if (extrasFont==nil) extrasFont = [UIFont boldSystemFontOfSize:32];
 	self.backgroundColor = [UIColor clearColor];
 	self.backgroundColor = [UIColor rgb:0x161616];
 	text = [[NSMutableString alloc] initWithCapacity:64];
@@ -137,7 +137,7 @@
 
 - (id)initFull {				// Full numerical pad with +, -, *, /, = operations
     if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
-		extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:32]);
+		extrasFont = [UIFont boldSystemFontOfSize:32];
 		[self setDefaults];
 		marginX = 6;
 		marginY = 6;
@@ -150,7 +150,7 @@
 
 - (id)initWithExtras:(int)pextras {		// Simple numerical pad with curstom extra buttons on the right
     if ((self = [super initWithFrame:CGRectMake(0, 0, 320, 200)])) {
-		extrasFont = ESRETAIN([UIFont boldSystemFontOfSize:24]);
+		extrasFont = [UIFont boldSystemFontOfSize:24];
 		[self setDefaults];
 		marginX = 5;
 		marginY = 6;
@@ -162,44 +162,11 @@
 	return self;
 }
 
-- (void)dealloc {
-	ESRELEASE(textColor);
-	ESRELEASE(numberFont);
-	ESRELEASE(extrasFont);
-	ESRELEASE(buttonFgColor);
-	ESRELEASE(buttonBgColor);
-	ESRELEASE(buttons);
-	ESRELEASE(text);
-	ESRELEASE(b0);
-	ESRELEASE(b1);
-	ESRELEASE(b2);
-	ESRELEASE(b3);
-	ESRELEASE(b4);
-	ESRELEASE(b5);
-	ESRELEASE(b6);
-	ESRELEASE(b7);
-	ESRELEASE(b8);
-	ESRELEASE(b9);
-	ESRELEASE(bdot);
-	ESRELEASE(bdel);
-	//ESRELEASE(bclear);
-	ESRELEASE(bplus);
-	ESRELEASE(bminus);
-	ESRELEASE(bmult);
-	ESRELEASE(bdiv);
-	ESRELEASE(bequal);
-	ESRELEASE(operators);
-	ESRELEASE(lowPriorityOperators);
-	ESRELEASE(highPriorityOperators);
-    ES_SUPER_DEALLOC
-}
-
 // Properties
 // ----------
 - (void)setTextColor:(UIColor *)pcolor {
 	if (textColor!=pcolor) {
-		ESRELEASE(textColor);
-		textColor = ESRETAIN(pcolor);
+		textColor = pcolor;
 		b0.color = pcolor;
 		b1.color = pcolor;
 		b2.color = pcolor;
@@ -231,8 +198,7 @@
 
 - (void)setNumberFont:(UIFont *)pfont {
 	if (numberFont!=pfont) {
-		ESRELEASE(numberFont);
-		numberFont = ESRETAIN(pfont);
+		numberFont = pfont;
 		b0.font = pfont;
 		b1.font = pfont;
 		b2.font = pfont;
@@ -249,8 +215,7 @@
 
 - (void)setExtrasFont:(UIFont *)pfont {
 	if (extrasFont!=pfont) {
-		ESRELEASE(extrasFont);
-		extrasFont = ESRETAIN(pfont);
+		extrasFont = pfont;
 		bplus.font = pfont;
 		bminus.font = pfont;
 		bmult.font = pfont;
@@ -357,8 +322,7 @@
 
 - (void)setButtonFgColor:(UIColor *)pcolor {
 	if (buttonFgColor!=pcolor) {
-		ESRELEASE(buttonFgColor);
-		buttonFgColor = ESRETAIN(pcolor);
+		buttonFgColor = pcolor;
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
 		b2.bgColor = pcolor;
@@ -381,8 +345,7 @@
 
 - (void)setButtonBgColor:(UIColor *)pcolor {
 	if (buttonBgColor!=pcolor) {
-		ESRELEASE(buttonBgColor);
-		buttonBgColor = ESRETAIN(pcolor);
+		buttonBgColor = pcolor;
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
 		b2.bgColor = pcolor;
