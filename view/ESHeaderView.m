@@ -48,7 +48,7 @@
 }
 
 - (void) setText:(NSString *)ptext {
-	if (label==nil) [self initialize];
+	if (label == nil) [self initialize];
 	label.text = ptext;
 }
 
@@ -57,7 +57,7 @@
 }
 
 - (void)setTextColor:(UIColor *)pcolor {
-	ES_CHECK_NR(label!=nil,@"No text in ESHeaderView, can't set color")
+	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set color")
 	label.textColor = pcolor;
 	label.shadowColor = [pcolor withAlpha:0.6f];
 }
@@ -67,12 +67,12 @@
 }
 
 - (void)setShadowOffset:(CGSize)psize {
-	ES_CHECK_NR(label!=nil,@"No text in ESHeaderView, can't set shadow offset")
+	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set shadow offset")
 	label.shadowOffset = psize;
 }
 
 - (void)setGradient:(ESGradient *)pgradient {
-	ES_CHECK_NR(label!=nil,@"No text in ESHeaderView, can't set gradient")
+	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set gradient")
 	if (gradient != pgradient) {
 		gradient = pgradient;
 		[self setNeedsDisplay];
@@ -82,7 +82,7 @@
 // Composition
 // ----------
 - (void) layoutSubviews {
-	if (label==nil) return;
+	if (label == nil) return;
 	CGRect b = self.bounds;
 	if (b.size.width < 1) return;
 	CGSize ts = [self.text sizeWithFont:label.font];
@@ -94,7 +94,7 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-	if (gradient==nil || label==nil) return;
+	if (gradient == nil || label == nil) return;
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
 	if (ctx == nil) return;
 	CGRect b = self.bounds;

@@ -68,19 +68,19 @@
 			e3 = 0.0f;
 			e4 = 0.0f;
 		}
-		if (force<0) {
+		if (force < 0) {
 			CGFloat t = e0; e0 = e4; e4 = t; 
 			t = e1; e1 = e2; e2 = t; 
 		}
-		p1 = 0.5f-fabsf(force)/200;
-		p3 = 0.5f+fabsf(force)/200;
+		p1 = 0.5f - fabsf(force) / 200;
+		p3 = 0.5f + fabsf(force) / 200;
 	}
 	CGFloat colors[] = {
-		ES_COLOR_CHECKED(r+e0), ES_COLOR_CHECKED(g+e0), ES_COLOR_CHECKED(b+e0), a,
-		ES_COLOR_CHECKED(r+e1), ES_COLOR_CHECKED(g+e1), ES_COLOR_CHECKED(b+e1), a,
-		ES_COLOR_CHECKED(r+e2), ES_COLOR_CHECKED(g+e2), ES_COLOR_CHECKED(b+e2), a,
-		ES_COLOR_CHECKED(r+e3), ES_COLOR_CHECKED(g+e3), ES_COLOR_CHECKED(b+e3), a,
-		ES_COLOR_CHECKED(r+e4), ES_COLOR_CHECKED(g+e4), ES_COLOR_CHECKED(b+e4), a,
+		ES_COLOR_CHECKED(r + e0), ES_COLOR_CHECKED(g + e0), ES_COLOR_CHECKED(b + e0), a,
+		ES_COLOR_CHECKED(r + e1), ES_COLOR_CHECKED(g + e1), ES_COLOR_CHECKED(b + e1), a,
+		ES_COLOR_CHECKED(r + e2), ES_COLOR_CHECKED(g + e2), ES_COLOR_CHECKED(b + e2), a,
+		ES_COLOR_CHECKED(r + e3), ES_COLOR_CHECKED(g + e3), ES_COLOR_CHECKED(b + e3), a,
+		ES_COLOR_CHECKED(r + e4), ES_COLOR_CHECKED(g + e4), ES_COLOR_CHECKED(b + e4), a,
 	};
 	CGFloat locations[] = { 0.0f, p1, 0.5f, p3, 1.0f };
 	CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, colors, locations, 5);
@@ -92,7 +92,7 @@
 // Composition
 // -----------
 - (void)draw:(CGContextRef)pctx rect:(CGRect)prect color:(UIColor *)pcolor {
-	if (style==ESGradientStyleNone) {
+	if (style == ESGradientStyleNone) {
 		[pcolor set];
 		CGContextAddRect(pctx, prect);
 		CGContextFillPath(pctx);

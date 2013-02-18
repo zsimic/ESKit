@@ -12,7 +12,6 @@ void setEsBundle(NSString *lang) {
 	} else {
 		NSString* path = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:ESFS(@"%@.lproj", lang)];
 		esBundle = [NSBundle bundleWithPath:path];
-//		ES_LOG(@"path: %@, bundle: %@", path, esBundle);
 	}
 }
 
@@ -55,7 +54,7 @@ UIView *topMostView(UIView *pview) {
 #define CPK_TICKET			@"cpadTicket"
 NSString *getCustomUniqueId(void) {
 	NSString *identifier = [[NSUserDefaults standardUserDefaults] objectForKey:CPK_TICKET];
-	if (identifier.length<30) {		// example uid: 04567f1639637f32568b1002874abceeac4d6506
+	if (identifier.length < 30) {		// example uid: 04567f1639637f32568b1002874abceeac4d6506
 		CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
 		CFStringRef newUniqueIdString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
 		identifier = ESFS(@"%@-%@", escapedString(ESFS(@"%@", newUniqueIdString)), ESDeviceModel);
@@ -74,19 +73,18 @@ NSString *escapedString (NSString *pstring) {
 	NSMutableString *s = [[NSMutableString alloc] init];
 	BOOL wasEscaped = YES;
 	int n = pstring.length;
-	int i;
-	for (i=0; i<n; i++) {
+	for (int i = 0; i < n; i++) {
 		unichar c = [pstring characterAtIndex:i];
 		if (c == '-') {
 			// Do nothing, ignore
-		} else if ((c>='0' && c<='9') || (c>='A' && c<='Z') || (c>='a' && c<='z')) {
+		} else if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
 			[s appendFormat:@"%c", c];
 			wasEscaped = NO;
 		} else if (!wasEscaped) {
 			[s appendString:@"_"];
 			wasEscaped = YES;
 		}
-		if (s.length>64) return s;
+		if (s.length > 64) return s;
 	}
 	return s;
 }

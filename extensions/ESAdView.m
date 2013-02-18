@@ -34,12 +34,12 @@
 
 + (BOOL)autoRefresh:(ESAdAutoRefresh)pset {
 	static BOOL isAutoRefreshOn = NO;
-	if (pset==ESAdAutoRefreshOn) {
+	if (pset == ESAdAutoRefreshOn) {
 		if (!isAutoRefreshOn) {
 			isAutoRefreshOn = YES;
 			[[ESAdView sharedAdView] updateAdViews];
 		}
-	} else if (pset==ESAdAutoRefreshOff) {
+	} else if (pset == ESAdAutoRefreshOff) {
 		isAutoRefreshOn = NO;
 	}
 	return isAutoRefreshOn;
@@ -55,11 +55,11 @@
 		iAdFails = 0;
 		consecutiveAdMobFails = 0;
 		iAdSeen = [[NSUserDefaults standardUserDefaults] boolForKey:ES_IAD_SEEN];
-		if (NSClassFromString(@"ADBannerView")==nil) {
+		if (NSClassFromString(@"ADBannerView") == nil) {
 			desiredProvider = ESAdProviderGoogle;
 		} else {
 			float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
-			desiredProvider = n>ES_IAD_GIVEUP ? ESAdProviderGoogle : ESAdProviderApple;
+			desiredProvider = n > ES_IAD_GIVEUP ? ESAdProviderGoogle : ESAdProviderApple;
 		}
 		// Must set a non-transparent background color to avoid a bug with iAds, where one can't tap on an iAd (won't react)
 		self.backgroundColor = [UIColor blackColor];
@@ -128,7 +128,7 @@
 		}
 	}
 	if ([ESAdView autoRefresh:ESAdAutoRefreshQuery] && adPlacement != ESAdPlacementNone) {
-		if (desiredProvider == ESAdProviderApple && iAdBanner==nil) {
+		if (desiredProvider == ESAdProviderApple && iAdBanner == nil) {
 			CGRect frame;
 			if (&ADBannerContentSizeIdentifierPortrait != nil) {
 				frame.size = [ADBannerView sizeFromBannerContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
@@ -148,7 +148,7 @@
 			[self addSubview:iAdBanner];
 			currentlyShownProvider = ESAdProviderNone;
 			ES_LOG(@"--> Requesting iAd");
-		} else if (desiredProvider == ESAdProviderGoogle && adMobBanner==nil) {
+		} else if (desiredProvider == ESAdProviderGoogle && adMobBanner == nil) {
 			CGRect frame;
 			frame.size = GAD_SIZE_320x50;
 			frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
@@ -175,7 +175,7 @@
 // Composition
 // -----------
 - (void)layoutSubviews {
-	ES_CHECK_NR(controller!=nil, @"controller should not be nil");
+	ES_CHECK_NR(controller != nil, @"controller should not be nil");
 	CGRect contentRect = self.bounds;
 	if (animateAds) {
 		[UIView beginAnimations:nil context:UIGraphicsGetCurrentContext()];
@@ -186,13 +186,13 @@
 		CGRect fAd = iAdBanner ? iAdBanner.frame : adMobBanner.frame;
 		if (currentlyShownProvider != ESAdProviderNone) {
 			contentRect.size.height -= fAd.size.height;
-			if (adPlacement==ESAdPlacementBottom) {
+			if (adPlacement == ESAdPlacementBottom) {
 				fAd.origin.y = contentRect.size.height;
 			} else {
 				fAd.origin.y = 0.0f;
 				contentRect.origin.y = fAd.size.height;
 			}
-		} else if (adPlacement==ESAdPlacementBottom) {
+		} else if (adPlacement == ESAdPlacementBottom) {
 			fAd.origin.y = contentRect.size.height + 4.0f;
 		} else {
 			fAd.origin.y = -fAd.size.height - 4.0f;
@@ -281,9 +281,9 @@
 	if (desiredProvider != ESAdProviderGoogle) return;
 	// Retry iAds after ES_IAD_RETRY_THRESHOLD succesful AdMob fetches
 	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
-	if (n>1) {
-		n -= 1.0f/ES_IAD_RETRY_THRESHOLD;
-		if (n<-10.0f) n = -10.0f;
+	if (n > 1) {
+		n -= 1.0f / ES_IAD_RETRY_THRESHOLD;
+		if (n < -10.0f) n = -10.0f;
 		[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
 	}
 	currentlyShownProvider = ESAdProviderGoogle;
@@ -300,15 +300,15 @@
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
 	if (desiredProvider != ESAdProviderGoogle) return;
 	float n = [[NSUserDefaults standardUserDefaults] floatForKey:ES_IAD_FAIL_COUNT];
-	if (n>1) {
-		n -= 1.0f/ES_IAD_RETRY_THRESHOLD;
-		if (n<-10.0f) n = -10.0f;
+	if (n > 1) {
+		n -= 1.0f / ES_IAD_RETRY_THRESHOLD;
+		if (n < -10.0f) n = -10.0f;
 		[[NSUserDefaults standardUserDefaults] setFloat:n forKey:ES_IAD_FAIL_COUNT];
 	}
 	isCurrentlyShowingAdFullScreen = NO;
 	consecutiveAdMobFails++;
 	// We don't set 'currentlyShownProvider' to none when an AdMob ad fails to load because we can let the previous AdMob on screen (not the case with iAds, which disappear by themselves on fail-to-load)
-	if (iAdSeen && iAdFails==0 && consecutiveAdMobFails>1 && n<ES_IAD_GIVEUP && NSClassFromString(@"ADBannerView")!=nil) {
+	if (iAdSeen && iAdFails == 0 && consecutiveAdMobFails > 1 && n < ES_IAD_GIVEUP && NSClassFromString(@"ADBannerView") != nil) {
 		// Swith to iAd only after a certain number of AdMob fails
 		desiredProvider = ESAdProviderApple;
 		[self updateAdViews];

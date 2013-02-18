@@ -14,7 +14,7 @@
 }
 
 - (void)setBackgroundImage:(UIImage *)pimage {
-	if (backgroundImage!=pimage) {
+	if (backgroundImage != pimage) {
 		backgroundImage = pimage;
 		self.backgroundColor = [UIColor clearColor];
 		[self setNeedsDisplay];

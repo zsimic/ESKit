@@ -12,7 +12,7 @@
 
 //- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
 //	UIImage *image = [self customBgImage:nil set:NO];
-//	if (image==nil) {
+//	if (image == nil) {
 //		[super drawLayer:layer inContext:ctx];
 //	} else {
 //		CGContextScaleCTM(ctx, 1.0f, -1.0f);
@@ -24,7 +24,7 @@
 	return pimage;
 //	static UIImage *stored_image = nil;
 //	if (pset) {
-//		if (stored_image!=pimage) {
+//		if (stored_image != pimage) {
 //			stored_image = pimage;
 //			self.shadowImage = pimage;
 //			[self setNeedsDisplay];

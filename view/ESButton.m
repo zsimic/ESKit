@@ -155,7 +155,7 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
-	if (ctx==nil) return;
+	if (ctx == nil) return;
 	CGContextSaveGState(ctx);
 	CGRect b = self.bounds;
 	CGRect b1 = b;
@@ -170,14 +170,14 @@
 			cbg = highlightColor;
 		} else if (bgColor != nil) {
 			float bs =(bgColor.brightness < 0.3) ? -1.0f : 1.0f;
-			cbg = [bgColor emphasized:-bs*100.0f];
+			cbg = [bgColor emphasized:-bs * 100.0f];
 		}
 	}
 	[gradient draw:ctx rect:b color:cbg];
 	if (image != nil) {
 		CGRect ib = b;
 		CGSize is = image.size;
-		if (is.width<=b.size.width && is.height<=b.size.height) {
+		if (is.width <= b.size.width && is.height <= b.size.height) {
 			ib.size = is;
 		} else {
 			ib.size.width = b.size.height - 4;

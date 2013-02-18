@@ -63,7 +63,7 @@
 - (void)setButtonPosition:(ESButton *)pbutton ix:(float)ix iy:(float)iy lx:(float)lx ly:(float)ly {
 	CGRect f = CGRectMake(ix, iy, lx, ly);
 	int i = [buttons indexOfObjectIdenticalTo:pbutton];
-	ES_CHECK_NR(i>=0 && i<buttons.count, @"Unknown button");
+	ES_CHECK_NR(i >= 0 && i < buttons.count, @"Unknown button");
 	pbutton.hidden = NO;
 	bframes[i] = f;
 }
@@ -74,7 +74,7 @@
 	highPriorityOperators = [NSCharacterSet characterSetWithCharactersInString:@"x*/"];
 	textColor = [UIColor cWhite];
 	numberFont = [UIFont boldSystemFontOfSize:32];
-	if (extrasFont==nil) extrasFont = [UIFont boldSystemFontOfSize:32];
+	if (extrasFont == nil) extrasFont = [UIFont boldSystemFontOfSize:32];
 	self.backgroundColor = [UIColor clearColor];
 	self.backgroundColor = [UIColor rgb:0x161616];
 	text = [[NSMutableString alloc] initWithCapacity:64];
@@ -165,7 +165,7 @@
 // Properties
 // ----------
 - (void)setTextColor:(UIColor *)pcolor {
-	if (textColor!=pcolor) {
+	if (textColor != pcolor) {
 		textColor = pcolor;
 		b0.color = pcolor;
 		b1.color = pcolor;
@@ -197,7 +197,7 @@
 }
 
 - (void)setNumberFont:(UIFont *)pfont {
-	if (numberFont!=pfont) {
+	if (numberFont != pfont) {
 		numberFont = pfont;
 		b0.font = pfont;
 		b1.font = pfont;
@@ -214,7 +214,7 @@
 }
 
 - (void)setExtrasFont:(UIFont *)pfont {
-	if (extrasFont!=pfont) {
+	if (extrasFont != pfont) {
 		extrasFont = pfont;
 		bplus.font = pfont;
 		bminus.font = pfont;
@@ -258,48 +258,48 @@
 }
 
 - (void)setExtraButtons:(int)pextras {
-	ES_CHECK_NR(pextras>=0, @"Invalid extras button count %i", pextras)
-	int px = (extraButtons>=0) ? extraButtons : -extraButtons;
-	if (px!=pextras) {
-		extraButtons = (extraButtons>=0) ? pextras : -pextras;
+	ES_CHECK_NR(pextras >= 0, @"Invalid extras button count %i", pextras)
+	int px = (extraButtons >= 0) ? extraButtons : -extraButtons;
+	if (px != pextras) {
+		extraButtons = (extraButtons >= 0) ? pextras : -pextras;
 		float dy = 4.0f / pextras;
 		float ly = 0;
-		if (pextras==1) ly = 4;
-		if (pextras==2) ly = 2;
-		if (pextras==3) ly = 1.3f;
-		if (pextras==4) ly = 1;
-		if (pextras==5) ly = 0.78f;
-		[self setButtonPosition:bplus  ix:2.98f iy:0*dy lx:0.64f ly:ly];
-		[self setButtonPosition:bminus ix:2.98f iy:1*dy lx:0.64f ly:ly];
-		[self setButtonPosition:bmult  ix:2.98f iy:2*dy lx:0.64f ly:ly];
-		[self setButtonPosition:bdiv   ix:2.98f iy:3*dy lx:0.64f ly:ly];
-		[self setButtonPosition:bequal ix:2.98f iy:4*dy lx:0.64f ly:ly];
-		bplus.hidden = pextras<1;
-		bminus.hidden = pextras<2;
-		bmult.hidden = pextras<3;
-		bdiv.hidden = pextras<4;
-		bequal.hidden = pextras<5;
+		if (pextras == 1) ly = 4;
+		if (pextras == 2) ly = 2;
+		if (pextras == 3) ly = 1.3f;
+		if (pextras == 4) ly = 1;
+		if (pextras == 5) ly = 0.78f;
+		[self setButtonPosition:bplus  ix:2.98f iy:0 * dy lx:0.64f ly:ly];
+		[self setButtonPosition:bminus ix:2.98f iy:1 * dy lx:0.64f ly:ly];
+		[self setButtonPosition:bmult  ix:2.98f iy:2 * dy lx:0.64f ly:ly];
+		[self setButtonPosition:bdiv   ix:2.98f iy:3 * dy lx:0.64f ly:ly];
+		[self setButtonPosition:bequal ix:2.98f iy:4 * dy lx:0.64f ly:ly];
+		bplus.hidden = pextras < 1;
+		bminus.hidden = pextras < 2;
+		bmult.hidden = pextras < 3;
+		bdiv.hidden = pextras < 4;
+		bequal.hidden = pextras < 5;
 		[self setNeedsLayout];
 	}
 }
 
 - (BOOL)showExtraButtons {
-	return extraButtons>0;
+	return extraButtons > 0;
 }
 
 - (void)setShowExtraButtons:(BOOL)pshow {
 	if (pshow) {
-		if (extraButtons<0) {
+		if (extraButtons < 0) {
 			extraButtons = -extraButtons;
-			bplus.hidden = extraButtons<1;
-			bminus.hidden = extraButtons<2;
-			bmult.hidden = extraButtons<3;
-			bdiv.hidden = extraButtons<4;
-			bequal.hidden = extraButtons<5;
+			bplus.hidden = extraButtons < 1;
+			bminus.hidden = extraButtons < 2;
+			bmult.hidden = extraButtons < 3;
+			bdiv.hidden = extraButtons < 4;
+			bequal.hidden = extraButtons < 5;
 			[self setNeedsLayout];
 		}
 	} else {
-		if (extraButtons>0) {
+		if (extraButtons > 0) {
 			extraButtons = -extraButtons;
 			bplus.hidden = YES;
 			bminus.hidden = YES;
@@ -312,16 +312,16 @@
 }
 
 - (ESButton *)customButton:(int)pnumber {
-	if (pnumber==1) return bplus;
-	if (pnumber==2) return bminus;
-	if (pnumber==3) return bmult;
-	if (pnumber==4) return bdiv;
-	if (pnumber==5) return bequal;
+	if (pnumber == 1) return bplus;
+	if (pnumber == 2) return bminus;
+	if (pnumber == 3) return bmult;
+	if (pnumber == 4) return bdiv;
+	if (pnumber == 5) return bequal;
 	return nil;
 }
 
 - (void)setButtonFgColor:(UIColor *)pcolor {
-	if (buttonFgColor!=pcolor) {
+	if (buttonFgColor != pcolor) {
 		buttonFgColor = pcolor;
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
@@ -344,7 +344,7 @@
 }
 
 - (void)setButtonBgColor:(UIColor *)pcolor {
-	if (buttonBgColor!=pcolor) {
+	if (buttonBgColor != pcolor) {
 		buttonBgColor = pcolor;
 		b0.bgColor = pcolor;
 		b1.bgColor = pcolor;
@@ -367,7 +367,7 @@
 }
 
 - (void)setSelectedCustomButton:(int)pnumber {
-	if (selectedCustomButton!=pnumber) {
+	if (selectedCustomButton != pnumber) {
 		ESButton *b = [self customButton:selectedCustomButton];
 		b.color = textColor;
 		b.bgColor = self.buttonBgColor;
@@ -390,26 +390,26 @@
 // ----------
 
 - (double)calculated:(NSString *)ptext {
-	if (ptext.length<1) return 0;
+	if (ptext.length < 1) return 0;
 	unichar c0 = [ptext characterAtIndex:0];
-	NSRange start = NSMakeRange(c0=='-' ? 1 : 0, ptext.length - (c0=='-' ? 1 : 0));
+	NSRange start = NSMakeRange(c0 == '-' ? 1 : 0, ptext.length - (c0 == '-' ? 1 : 0));
 	NSRange rngl = [ptext rangeOfCharacterFromSet:lowPriorityOperators options:NSLiteralSearch range:start];
-	if (rngl.length>0) {
+	if (rngl.length > 0) {
 		NSString *s1 = [ptext substringToIndex:rngl.location];
-		NSString *s2 = [ptext substringFromIndex:rngl.location+1];
+		NSString *s2 = [ptext substringFromIndex:rngl.location + 1];
 		unichar c = [ptext characterAtIndex:rngl.location];
-		if (c=='+') {
+		if (c == '+') {
 			return [self calculated:s1] + [self calculated:s2];
 		} else {
 			return [self calculated:s1] - [self calculated:s2];
 		}
 	} else {
 		NSRange rngh = [ptext rangeOfCharacterFromSet:highPriorityOperators options:NSLiteralSearch range:start];
-		if (rngh.length>0) {
+		if (rngh.length > 0) {
 			NSString *s1 = [ptext substringToIndex:rngh.location];
-			NSString *s2 = [ptext substringFromIndex:rngh.location+1];
+			NSString *s2 = [ptext substringFromIndex:rngh.location + 1];
 			unichar c = [ptext characterAtIndex:rngh.location];
-			if (c=='x' || c=='*') {
+			if (c == 'x' || c == '*') {
 				return [self calculated:s1] * [self calculated:s2];
 			} else {
 				return [self calculated:s1] / [self calculated:s2];
@@ -421,90 +421,90 @@
 
 - (NSString *)innerSimplified:(NSString *)ptext lastOperator:(unichar)plast {
 	unichar c0 = [ptext characterAtIndex:0];
-	NSRange start = NSMakeRange(c0=='-' ? 1 : 0, ptext.length - (c0=='-' ? 1 : 0));
-	if (plast=='+' || plast=='-') {
+	NSRange start = NSMakeRange(c0 == '-' ? 1 : 0, ptext.length - (c0 == '-' ? 1 : 0));
+	if (plast == '+' || plast == '-') {
 		NSRange rng = [ptext rangeOfCharacterFromSet:operators options:NSLiteralSearch range:start];
-		if (rng.length>0) return ESFS(@"%g", [self calculated:ptext]);
-	} else if (plast=='x' || plast=='*' || plast=='/') {
+		if (rng.length > 0) return ESFS(@"%g", [self calculated:ptext]);
+	} else if (plast == 'x' || plast == '*' || plast == '/') {
 		NSRange rngl = [ptext rangeOfCharacterFromSet:lowPriorityOperators options:NSLiteralSearch range:start];
-		if (rngl.length>0) {
+		if (rngl.length > 0) {
 			NSString *s1 = [ptext substringToIndex:rngl.location];
-			NSString *s2 = [ptext substringFromIndex:rngl.location+1];
+			NSString *s2 = [ptext substringFromIndex:rngl.location + 1];
 			unichar c = [ptext characterAtIndex:rngl.location];
 			return ESFS(@"%@%c%g", s1, c, [self calculated:s2]);
 		} else {
 			NSRange rngh = [ptext rangeOfCharacterFromSet:highPriorityOperators options:NSLiteralSearch range:start];
-			if (rngh.length>0) return ESFS(@"%g", [self calculated:ptext]);
+			if (rngh.length > 0) return ESFS(@"%g", [self calculated:ptext]);
 		}
 	}
 	return ptext;
 }
 
 - (NSString *)simplified:(NSString *)ptext {
-	if (ptext.length<4) return ptext;
-	unichar c = [ptext characterAtIndex:ptext.length-1];
-	if (c=='+' || c=='-' || c=='x' || c=='*' || c=='/') {
-		NSString *sub = [ptext substringToIndex:ptext.length-1];
+	if (ptext.length < 4) return ptext;
+	unichar c = [ptext characterAtIndex:ptext.length - 1];
+	if (c == '+' || c == '-' || c == 'x' || c == '*' || c == '/') {
+		NSString *sub = [ptext substringToIndex:ptext.length - 1];
 		NSString *s = [self innerSimplified:sub lastOperator:c];
-		if (s!=sub) return ESFS(@"%@%c", [self innerSimplified:sub lastOperator:c], c);
+		if (s != sub) return ESFS(@"%@%c", [self innerSimplified:sub lastOperator:c], c);
 	}
 	return ptext;
 }
 
 - (unichar)lastNonNumerical:(NSString *)pstring {
-	for (int i = pstring.length - 1; i>=0; i--) {
+	for (int i = pstring.length - 1; i >= 0; i--) {
 		unichar c = [pstring characterAtIndex:i];
-		if (c<'0' || c>'9') return c;
+		if (c < '0' || c > '9') return c;
 	}
 	return '\0';
 }
 
 - (void)onButton:(ESButton *)pbutton {
 	if (pbutton == bdel) {
-		if (text.length > 0) [text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
+		if (text.length > 0) [text deleteCharactersInRange:NSMakeRange(text.length - 1, 1)];
 	} else if (pbutton == bdot) {
 		unichar c = [self lastNonNumerical:text];
-		if (c!='.') [text appendString:self.decimalSeparator];
-	} else if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv || pbutton==bequal) {
+		if (c != '.') [text appendString:self.decimalSeparator];
+	} else if (pbutton == bplus || pbutton == bminus || pbutton == bmult || pbutton == bdiv || pbutton == bequal) {
 		if (hasCustomButtons) {
-			if (pbutton==bplus) {
-				if (extraButtons>=1) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
-			} else if (pbutton==bminus) {
-				if (extraButtons>=2) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
-			} else if (pbutton==bmult) {
-				if (extraButtons>=3) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
-			} else if (pbutton==bdiv) {
-				if (extraButtons>=4) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
-			} else if (pbutton==bequal) {
-				if (extraButtons>=5) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
+			if (pbutton == bplus) {
+				if (extraButtons >= 1) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
+			} else if (pbutton == bminus) {
+				if (extraButtons >= 2) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
+			} else if (pbutton == bmult) {
+				if (extraButtons >= 3) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
+			} else if (pbutton == bdiv) {
+				if (extraButtons >= 4) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
+			} else if (pbutton == bequal) {
+				if (extraButtons >= 5) [[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_CUSTOM object:pbutton.text];
 			}
 			return;
-		} else if (text.length>0) {
-			if (pbutton==bequal) {
-				if (text.length>=3) {
-					unichar c = [text characterAtIndex:text.length-1];
-					if (c=='+' || c=='-' || c=='x' || c=='*' || c=='/') {
+		} else if (text.length > 0) {
+			if (pbutton == bequal) {
+				if (text.length >= 3) {
+					unichar c = [text characterAtIndex:text.length - 1];
+					if (c == '+' || c == '-' || c == 'x' || c == '*' || c == '/') {
 						// Remove last operation character
-						[text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
+						[text deleteCharactersInRange:NSMakeRange(text.length - 1, 1)];
 					}
 					unichar c0 = [text characterAtIndex:0];
-					NSRange start = NSMakeRange(c0=='-' ? 1 : 0, text.length - (c0=='-' ? 1 : 0));
+					NSRange start = NSMakeRange(c0 == '-' ? 1 : 0, text.length - (c0 == '-' ? 1 : 0));
 					NSRange rng = [text rangeOfCharacterFromSet:operators options:NSLiteralSearch range:start];
-					if (rng.length>0) {
+					if (rng.length > 0) {
 						self.text = ESFS(@"%g", [self calculated:text]);
 					}
 				}
 			} else {
-				unichar c = [text characterAtIndex:text.length-1];
-				if (c=='.' || (c>='0' && c<='9')) {
+				unichar c = [text characterAtIndex:text.length - 1];
+				if (c == '.' || (c >= '0' && c <= '9')) {
 					[text appendString:pbutton.text];
-					if (pbutton==bplus || pbutton==bminus || pbutton==bmult || pbutton==bdiv) {
+					if (pbutton == bplus || pbutton == bminus || pbutton == bmult || pbutton == bdiv) {
 						NSString *s = [self simplified:text];
-						if (s!=text) self.text = s;
+						if (s != text) self.text = s;
 					}
 				} else {
 					// Replace last operation character with new one
-					[text deleteCharactersInRange:NSMakeRange(text.length-1, 1)];
+					[text deleteCharactersInRange:NSMakeRange(text.length - 1, 1)];
 					[text appendString:pbutton.text];
 				}
 			}
@@ -512,7 +512,7 @@
 			return;
 		}
 	} else {
-		if (text.length<18) [text appendString:pbutton.text];
+		if (text.length < 18) [text appendString:pbutton.text];
 	}
 	[[NSNotificationCenter defaultCenter] postNotificationName:ESN_NUMPAD_TEXT object:text];
 }
@@ -546,17 +546,17 @@
 		[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
 		[UIView setAnimationDuration:0.2f];
 	}
-	float sx = extraButtons>0 ? 3.6f : 3;
-	float sy = extraButtons>0 ? 4 : 4;
+	float sx = extraButtons > 0 ? 3.6f : 3;
+	float sy = extraButtons > 0 ? 4 : 4;
 	int i;
 	for (i = 0; i < buttons.count; i++) {
 		CGRect f = bframes[i];
-		float dx = (sf.size.width - 2*marginX - (sx-1)*paddingX) / sx;
-		float dy = (sf.size.height - 2*marginY - (sy-1)*paddingY) / sy;
+		float dx = (sf.size.width - 2 * marginX - (sx - 1) * paddingX) / sx;
+		float dy = (sf.size.height - 2 * marginY - (sy - 1) * paddingY) / sy;
 		f.origin.x = marginX + f.origin.x * (dx + paddingX);
 		f.origin.y = marginY + f.origin.y * (dy + paddingY);
-		f.size.width = f.size.width * dx + (f.size.width-1)*paddingX;
-		f.size.height = f.size.height * dy + (f.size.height-1)*paddingY;
+		f.size.width = f.size.width * dx + (f.size.width - 1) * paddingX;
+		f.size.height = f.size.height * dy + (f.size.height - 1) * paddingY;
 		[[buttons objectAtIndex:i] setFrame:f];
 	}
 	if (isLayedOut) [UIView commitAnimations];

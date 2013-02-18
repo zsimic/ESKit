@@ -144,10 +144,10 @@
 		NSString *text = [headers objectAtIndex:section];
 		if (!text || !text.length) return EMPTY_HEADER_HEIGHT;
 	}
-	if (headerTextColor!=nil && headerFont!=nil && headerViews!=nil) {
-		return (section==0) ? 29 : 26;
+	if (headerTextColor != nil && headerFont != nil && headerViews != nil) {
+		return (section == 0) ? 29 : 26;
 	} else {
-		return (section==0) ? 28 : 25;
+		return (section == 0) ? 28 : 25;
 	}
 }
 
@@ -156,13 +156,13 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (headerTextColor!=nil && headerFont!=nil && headerViews!=nil) return nil;
-	if (section<0 || section>=headers.count) return nil;
+	if (headerTextColor != nil && headerFont != nil && headerViews != nil) return nil;
+	if (section < 0 || section >= headers.count) return nil;
 	return [headers objectAtIndex:section];
 }
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-	if (headerTextColor!=nil && headerFont!=nil && headerViews!=nil && section>=0 && section<headerViews.count) {
+	if (headerTextColor != nil && headerFont != nil && headerViews != nil && section >= 0 && section < headerViews.count) {
 		return [headerViews objectAtIndex:section];
 	}
 	return nil;

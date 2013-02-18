@@ -58,9 +58,9 @@ void ESAddRoundedRect(CGContextRef ctx, CGRect rect, float pcornerRadius) {
 //	CGFloat a = c1.alpha;
 //	CGFloat colors[] = {
 //		ESchecked(r), ESchecked(g), ESchecked(b), a,
-//		ESchecked(r-0.1f), ESchecked(g-0.1f), ESchecked(b-0.1f), a,
-//		ESchecked(r-0.3f), ESchecked(g-0.3f), ESchecked(b-0.3f), a,
-//		ESchecked(r-0.5f), ESchecked(g-0.5f), ESchecked(b-0.5f), a,
+//		ESchecked(r - 0.1f), ESchecked(g - 0.1f), ESchecked(b - 0.1f), a,
+//		ESchecked(r - 0.3f), ESchecked(g - 0.3f), ESchecked(b - 0.3f), a,
+//		ESchecked(r - 0.5f), ESchecked(g - 0.5f), ESchecked(b - 0.5f), a,
 //	};
 //	CGFloat locations[] = { 0.0f, 0.2f, 0.6f, 1.0f };
 //	CGGradientRef gradient = CGGradientCreateWithColorComponents(rgb, colors, locations, 4);
@@ -75,14 +75,14 @@ void ESAddRoundedRect(CGContextRef ctx, CGRect rect, float pcornerRadius) {
 //}
 
 BOOL ESIntersectsX(CGRect r, float x1, float x2) {
-	if (CGRectGetMaxX(r) < (x1<x2)?x1:x2) return NO;
-	if (CGRectGetMinX(r) > (x1>x2)?x1:x2) return NO;
+	if (CGRectGetMaxX(r) < (x1 < x2) ? x1 : x2) return NO;
+	if (CGRectGetMinX(r) > (x1 > x2) ? x1 : x2) return NO;
 	return YES;
 }
 
 BOOL ESIntersectsY(CGRect r, float py1, float py2) {
-	if (CGRectGetMaxY(r) < (py1<py2)?py1:py2) return NO;
-	if (CGRectGetMinY(r) > (py1>py2)?py1:py2) return NO;
+	if (CGRectGetMaxY(r) < (py1 < py2) ? py1 : py2) return NO;
+	if (CGRectGetMinY(r) > (py1 > py2) ? py1 : py2) return NO;
 	return YES;
 }
 

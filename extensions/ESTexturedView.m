@@ -20,7 +20,7 @@
 // Properties
 // ----------
 - (void)setView:(UIView *)pview {
-	if (view!=pview) {
+	if (view != pview) {
 		[view removeFromSuperview];
 		view = pview;
 		[self addSubview:pview];
@@ -29,7 +29,7 @@
 }
 
 - (void)setTexture:(UIImage *)ptexture {
-	if (texture!=ptexture) {
+	if (texture != ptexture) {
 		texture = ptexture;
 		textureRect.size = texture.size;
 		textureRect.origin.y = -200;
@@ -39,24 +39,18 @@
 
 // Composition
 // -----------
-//- (void)setFrame:(CGRect)pframe {
-//	[super setFrame:pframe];
-//	needsLayout = YES;
-//	[self setNeedsLayout];
-//}
-
 - (void)layoutSubviews {
 	contentRect = self.bounds;
 	view.frame = contentRect;
 }
 
 - (void)setContentOffset:(CGFloat)poffset {
-	if (poffset==prevContentY || texture==nil) return;
+	if (poffset == prevContentY || texture == nil) return;
 	textureRect.origin.y -= poffset - prevContentY;
-	if (textureRect.origin.y>=0) {
-		textureRect.origin.y -= 2*textureRect.size.height;
-	} else if (textureRect.origin.y+4*textureRect.size.height<=contentRect.size.height) {
-		textureRect.origin.y += 2*textureRect.size.height;
+	if (textureRect.origin.y >= 0) {
+		textureRect.origin.y -= 2 * textureRect.size.height;
+	} else if (textureRect.origin.y + 4 * textureRect.size.height <= contentRect.size.height) {
+		textureRect.origin.y += 2 * textureRect.size.height;
 	}
 	prevContentY = poffset;
 	[self setNeedsDisplay];
@@ -64,15 +58,14 @@
 
 - (void)drawRect:(CGRect)rect {
 	CGContextRef ctx = UIGraphicsGetCurrentContext();
-	if (ctx==nil) return;
+	if (ctx == nil) return;
 	CGContextSaveGState(ctx);
 	CGContextClearRect(ctx, rect);
-	if (texture!=nil) {
-		//CGContextSetAlpha(ctx, 0.5f);
+	if (texture != nil) {
 		CGContextScaleCTM(ctx, 1.0f, 1.0f);
 		CGRect f = textureRect;
 		CGContextDrawImage(ctx, f, texture.CGImage);
-		f.origin.y += 2*f.size.height;
+		f.origin.y += 2 * f.size.height;
 		if (f.origin.y <= rect.size.height) {
 			CGContextDrawImage(ctx, f, texture.CGImage);
 		}
@@ -86,9 +79,5 @@
 	}
 	CGContextRestoreGState(ctx);
 }
-
-// Ads
-// ---
-//#pragma mark ADBannerViewDelegate methods
 
 @end

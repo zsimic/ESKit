@@ -25,11 +25,11 @@ float checked_rgb(float value);
 }
 
 + (UIColor *)red:(int)pred green:(int)pgreen blue:(int)pblue alpha:(float)palpha {
-	return [UIColor colorWithRed:pred/255.0f green:pgreen/255.0f blue:pblue/255.0f alpha:palpha];
+	return [UIColor colorWithRed:pred / 255.0f green:pgreen / 255.0f blue:pblue / 255.0f alpha:palpha];
 }
 
 + (UIColor *)cGray:(float)pvalue alpha:(float)palpha{
-	return [UIColor red:(int)(pvalue*255) green:(int)(pvalue*255) blue:(int)(pvalue*255) alpha:palpha];
+	return [UIColor red:(int)(pvalue * 255) green:(int)(pvalue * 255) blue:(int)(pvalue * 255) alpha:palpha];
 }
 
 + (UIColor *)cGray:(float)pvalue { return [UIColor cGray:pvalue alpha:1.0f]; }
@@ -55,7 +55,7 @@ float checked_rgb(float value);
 - (float)brightness { return (self.red + self.green + self.blue) / 3; }
 
 - (NSString *)text {
-	return ESFS(@"rgba:%1.0f %1.0f %1.0f %1.0f", self.red*255, self.green*255, self.blue*255, self.alpha*255);
+	return ESFS(@"rgba:%1.0f %1.0f %1.0f %1.0f", self.red * 255, self.green * 255, self.blue * 255, self.alpha * 255);
 }
 
 // Same color, but with specified alpha (from 0 to 1)
@@ -75,9 +75,9 @@ float checked_rgb(float value) {
 -(UIColor *)emphasized:(float)pamount alpha:(float)palpha {
 	float *c = (float *)CGColorGetComponents([self CGColor]);
 	float d = pamount / 255.0f;
-	float r = checked_rgb(c[0]+d);
-	float g = checked_rgb(c[1]+d);
-	float b = checked_rgb(c[2]+d);
+	float r = checked_rgb(c[0] + d);
+	float g = checked_rgb(c[1] + d);
+	float b = checked_rgb(c[2] + d);
 	return [UIColor colorWithRed:r green:g blue:b alpha:checked_rgb(palpha)];
 }
 

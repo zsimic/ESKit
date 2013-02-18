@@ -41,7 +41,6 @@
 		browser.delegate = self;
 		browser.autoresizesSubviews = YES;
 		self.view = browser;
-//		[browser loadHTMLString:@"<html><body style=\"font-size:28pt;\"><h1>Please wait...</h1>Loading...</body></html>" baseURL:nil];
 	}
 	return self;
 }
@@ -57,8 +56,8 @@
 }
 
 - (void)setRelativePath:(NSString *)prelativePath {
-	if (prelativePath==nil) return;
-	if (prefix!=nil) self.nurl = [NSURL URLWithString:prelativePath relativeToURL:[NSURL URLWithString:prefix]];
+	if (prelativePath == nil) return;
+	if (prefix != nil) self.nurl = [NSURL URLWithString:prelativePath relativeToURL:[NSURL URLWithString:prefix]];
 	else self.nurl = [NSURL URLWithString:prelativePath];
 }
 
@@ -106,19 +105,19 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	NSString *html = nil;
-	if (nurl==nil) {
+	if (nurl == nil) {
 		html = @"<html><body style=\"font-size:28pt;\"><h1>No URL provided...</h1></body></html>";
 	} else if (!nurl.isFileURL && browser.scalesPageToFit) {
 		html = ESFS(@"<html><body style=\"font-size:28pt;\"><h1>%@</h1>%@ %@</body></html>", tr(@"Please wait..."), tr(@"Loading"), self.relativePath);
 	}
-	if (html!=nil) [browser loadHTMLString:html baseURL:nil];
+	if (html != nil) [browser loadHTMLString:html baseURL:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	if (nurl==nil) return;
+	if (nurl == nil) return;
 //	NSURL *nurl = [NSURL URLWithString:self.fullUrl];
-	if (referer!=nil) {
+	if (referer != nil) {
 		NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:nurl];
 		[req addValue:referer forHTTPHeaderField:@"Referer"];
 		[browser loadRequest:req];
