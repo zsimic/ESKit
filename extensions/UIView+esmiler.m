@@ -69,7 +69,7 @@ void ESAddRoundedRect(CGContextRef ctx, CGRect rect, float pcornerRadius) {
 //}
 
 //void ESFillGradientRadial(CGContextRef ctx, CGPoint p1, CGPoint p2, float r1, float r2, UIColor *c1) {
-//	CGGradientRef gradient = ESGradientRadial(ctx,c1);
+//	CGGradientRef gradient = ESGradientRadial(ctx, c1);
 //	CGContextDrawRadialGradient(ctx, gradient, p1, r1, p2, r2, 0);
 //	CGGradientRelease(gradient);
 //}

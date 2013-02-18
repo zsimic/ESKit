@@ -57,7 +57,7 @@
 }
 
 - (void)setTextColor:(UIColor *)pcolor {
-	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set color")
+	ES_CHECK_NR(label != nil, @"No text in ESHeaderView, can't set color")
 	label.textColor = pcolor;
 	label.shadowColor = [pcolor withAlpha:0.6f];
 }
@@ -67,12 +67,12 @@
 }
 
 - (void)setShadowOffset:(CGSize)psize {
-	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set shadow offset")
+	ES_CHECK_NR(label != nil, @"No text in ESHeaderView, can't set shadow offset")
 	label.shadowOffset = psize;
 }
 
 - (void)setGradient:(ESGradient *)pgradient {
-	ES_CHECK_NR(label != nil,@"No text in ESHeaderView, can't set gradient")
+	ES_CHECK_NR(label != nil, @"No text in ESHeaderView, can't set gradient")
 	if (gradient != pgradient) {
 		gradient = pgradient;
 		[self setNeedsDisplay];

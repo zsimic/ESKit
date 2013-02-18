@@ -24,7 +24,7 @@ This set of classes allows notably to:
 
 Non UI facilities (all in esmiler.h)
 
-* A way to easily have localized text using a 'tr(str,…)' macro instead of the much more verbose 'NSLocalizedString(key,comment)' approach
+* A way to easily have localized text using a 'tr(str, ...)' macro instead of the much more verbose 'NSLocalizedString(key,comment)' approach
 * A way to easily write assertions that are taken away at release
 * A few macros that make it simpler to work with formatted strings
 
