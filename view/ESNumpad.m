@@ -90,7 +90,7 @@
 	b7 = [self newNumberButton:7];
 	b8 = [self newNumberButton:8];
 	b9 = [self newNumberButton:9];
-	bdot = [self newTextButton:@"."];
+	bdot = [self newTextButton:self.decimalSeparator];
 	bdot.font = numberFont;
 	bdel = [self newImageButton:@"backspace.png"];
 	//bclear = [self newExtraButton:@"C"];
@@ -416,7 +416,8 @@
 			}
 		}
 	}
-	return [ptext doubleValue];
+	NSString *s = [ptext stringByReplacingOccurrencesOfString:self.decimalSeparator withString:@"."];
+	return [s doubleValue];
 }
 
 - (NSString *)innerSimplified:(NSString *)ptext lastOperator:(unichar)plast {
@@ -464,7 +465,7 @@
 		if (text.length > 0) [text deleteCharactersInRange:NSMakeRange(text.length - 1, 1)];
 	} else if (pbutton == bdot) {
 		unichar c = [self lastNonNumerical:text];
-		if (c != '.') [text appendString:self.decimalSeparator];
+		if (c != '.' && c != ',') [text appendString:self.decimalSeparator];
 	} else if (pbutton == bplus || pbutton == bminus || pbutton == bmult || pbutton == bdiv || pbutton == bequal) {
 		if (hasCustomButtons) {
 			if (pbutton == bplus) {
@@ -491,12 +492,14 @@
 					NSRange start = NSMakeRange(c0 == '-' ? 1 : 0, text.length - (c0 == '-' ? 1 : 0));
 					NSRange rng = [text rangeOfCharacterFromSet:operators options:NSLiteralSearch range:start];
 					if (rng.length > 0) {
-						self.text = ESFS(@"%g", [self calculated:text]);
+						double val = [self calculated:text];
+						NSString *s = ESFS(@"%g", val);
+						self.text = [s stringByReplacingOccurrencesOfString:@"." withString:self.decimalSeparator];
 					}
 				}
 			} else {
 				unichar c = [text characterAtIndex:text.length - 1];
-				if (c == '.' || (c >= '0' && c <= '9')) {
+				if (c == '.' || c == ',' || (c >= '0' && c <= '9')) {
 					[text appendString:pbutton.text];
 					if (pbutton == bplus || pbutton == bminus || pbutton == bmult || pbutton == bdiv) {
 						NSString *s = [self simplified:text];

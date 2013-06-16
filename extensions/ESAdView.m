@@ -95,7 +95,7 @@
 	if (!isCurrentlyShowingAdFullScreen) {
 #if ES_DEBUG
 		GADRequest *request = [GADRequest request];
-		//request.testDevices = [NSArray arrayWithObjects:[[UIDevice currentDevice] uniqueIdentifier], GAD_SIMULATOR_ID, nil];
+		request.testDevices = [NSArray arrayWithObjects:@"GAD_SIMULATOR_ID", nil];
 		[adMobBanner loadRequest:request];
 #else
 		[adMobBanner loadRequest:nil];
@@ -135,11 +135,9 @@
 				iAdBanner.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifierPortrait, nil];
 				iAdBanner.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
 			} else {
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
-				frame.size = [ADBannerView sizeFromBannerContentSizeIdentifier:ADBannerContentSizeIdentifier320x50];
-				iAdBanner.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifier320x50, nil];
-				iAdBanner.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
-#pragma GCC diagnostic warning "-Wdeprecated-declarations"
+				frame.size = [ADBannerView sizeFromBannerContentSizeIdentifier:ADBannerContentSizeIdentifierPortrait];
+				iAdBanner.requiredContentSizeIdentifiers = [NSSet setWithObjects:ADBannerContentSizeIdentifierPortrait, nil];
+				iAdBanner.currentContentSizeIdentifier = ADBannerContentSizeIdentifierPortrait;
 			}
 			frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
 			iAdBanner = [[ADBannerView alloc] initWithFrame:frame];
@@ -150,7 +148,7 @@
 			ES_LOG(@"--> Requesting iAd");
 		} else if (desiredProvider == ESAdProviderGoogle && adMobBanner == nil) {
 			CGRect frame;
-			frame.size = GAD_SIZE_320x50;
+			frame.size = CGSizeFromGADAdSize(kGADAdSizeBanner);
 			frame.origin = CGPointMake(0.0f, CGRectGetMaxY(self.bounds));
 			adMobBanner = [[GADBannerView alloc] initWithFrame:frame];
 			ES_CHECK_NR(adMobUnitID != nil, @"You forgot to set adMobUnitID on your ESAdView, call [ESAdView setAdMobUnitId:yourID]");

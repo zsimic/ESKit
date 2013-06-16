@@ -35,7 +35,7 @@
 	ESButton *b7;
 	ESButton *b8;
 	ESButton *b9;
-	ESButton *bdot;		// '.'
+	ESButton *bdot;		// decimalSeparator ('.' or ',')
 	ESButton *bdel;		// delete button (clear)
 	//ESButton *bclear;	// 'C' button (clear)
 	ESButton *bplus;

@@ -149,7 +149,7 @@
 	if (b.size.width < 1) return;
 	textRect.size = [text sizeWithFont:font];
 	textRect.origin.x = b.origin.x + (b.size.width - textRect.size.width) / 2;
-	textRect.origin.y = b.origin.y + (b.size.height - textRect.size.height) / 2;
+	textRect.origin.y = b.origin.y + (b.size.height - textRect.size.height - 3) / 2;
 	[self setNeedsDisplay];
 }
 
