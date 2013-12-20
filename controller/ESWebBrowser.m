@@ -79,10 +79,6 @@
 
 // Contoroller
 // -----------
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
-}
-
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
